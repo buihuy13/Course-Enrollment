@@ -56,6 +56,7 @@ public class SecurityConfiguration {
         return provider;
     }
 
+    //Inject to controller or services to authenticate
     @Bean 
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
