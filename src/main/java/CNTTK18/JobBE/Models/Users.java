@@ -11,31 +11,41 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
+
+@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private int id;
 
-    @Column(unique = true, nullable = false)
+    @NotNull 
+    @Size(min = 6, max = 50)
+    @Column(unique = true, nullable = false, length = 50)
     private String username;
 
+    @NotNull
     @Column(nullable = false)
     private String password;
 
+    @NotNull
+    @Email
     @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true)
     private String phone;
     private String address;
+    @Size(min = 6, max = 50)
+    @Column(length = 50)
     private String fullName;
 
     @ManyToMany
