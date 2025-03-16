@@ -1,6 +1,8 @@
 package CNTTK18.JobBE.Models;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +20,9 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream()
+        List<Roles> roles = new ArrayList<>();
+        roles.add(user.getRole());
+        return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
                 .collect(Collectors.toList());
     }
