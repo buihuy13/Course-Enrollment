@@ -8,4 +8,5 @@ import CNTTK18.JobBE.Models.Users;
 @Repository
 public interface UsersRepo extends JpaRepository<Users, Integer> {
     Users findByUsername(String username);
+    Users findByEmail(String email);
 }
