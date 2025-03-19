@@ -1,11 +1,12 @@
 package CNTTK18.JobBE.Services;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
-import CNTTK18.JobBE.Models.Users;
+import CNTTK18.JobBE.Models.TokenResponse;
 import CNTTK18.JobBE.Repositories.UsersRepo;
 
 public class AuthService {
@@ -19,14 +20,18 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public Object login(LoginDTO model) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
-        if (!authentication.isAuthenticated()) {
-            return null;
+    public TokenResponse login(LoginDTO model) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
+            return new TokenResponse(jwtService.generateToken(model.getUsername()), jwtService.generateRefreshToken(model.getUsername()));
         }
-        Users user = repo.findByEmail(model.getUsername());
-        return new {
-            token = jwtService.generateToken(user.getUsername(), user.getId());
+        catch (BadCredentialsException e)
+        {
+            throw e;
+        }
+        catch (Exception e)
+        {
+            throw e;
         }
     }
 

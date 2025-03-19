@@ -75,7 +75,7 @@ public class SecurityConfiguration {
         //allowed domain
         corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         corsConfig.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-        corsConfig.setAllowedHeaders(Arrays.asList("Content-Type","Authorization", "X-Requested-With"));
+        corsConfig.setAllowedHeaders(Arrays.asList("Content-Type","Authorization", "X-Requested-With", "X-Refresh-Token"));
         corsConfig.setAllowCredentials(true);
         corsConfig.setMaxAge(3600L);
 

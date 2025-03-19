@@ -1,11 +1,13 @@
 package CNTTK18.JobBE.Controllers;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.cors.CorsConfigurationSource;
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
+import CNTTK18.JobBE.Models.TokenResponse;
 import CNTTK18.JobBE.Services.AuthService;
 import jakarta.validation.Valid;
 
@@ -19,11 +21,17 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO model) {
-        var userDetails = authService.login(model);
-
-        if (userDetails == null) {
-            return ResponseEntity.badRequest().body("Invalid username or password");
+        try {
+            TokenResponse tokens = authService.login(model);
+            return ResponseEntity.ok(tokens);
         }
-        return ResponseEntity.ok(userDetails);
+        catch (BadCredentialsException e)
+        {
+            return ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Invalid username or password");
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.badRequest().body("Invalid");
+        }
     }
 }
