@@ -3,6 +3,7 @@ package CNTTK18.JobBE.Models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,4 +31,7 @@ public class PhieuDangKy {
     @NotNull
     @Column(nullable = false)
     private int tongTinChi;
+
+    @OneToOne(mappedBy = "phieudangky")
+    private SinhVien sinhVien;
 }
