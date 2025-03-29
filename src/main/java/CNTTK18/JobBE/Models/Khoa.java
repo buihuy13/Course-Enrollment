@@ -41,12 +41,22 @@ public class Khoa {
     }
 
     @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
-    private List<GiangVien> giangVienList = new ArrayList<>();
+    private List<GiangVien> giangVienList;
 
     public List<GiangVien> getGiangVienList() {
         if (giangVienList == null) {
             giangVienList = new ArrayList<>();
         }
         return giangVienList;
+    }
+
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    private List<MonHoc> monHocList;
+
+    public List<MonHoc> getMonHocList() {
+        if (monHocList == null) {
+            monHocList = new ArrayList<>();
+        }
+        return monHocList;
     }
 }

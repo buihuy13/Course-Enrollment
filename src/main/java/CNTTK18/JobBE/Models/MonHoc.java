@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,16 +41,6 @@ public class MonHoc {
     private int soLuongSinhVienToiDa;
 
     @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
-    private List<MonHoc> monHocList;
-
-    public List<MonHoc> getMonHocList() {
-        if (monHocList == null) {
-            monHocList = new ArrayList<>();
-        }
-        return monHocList;
-    }
-
-    @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
     private List<DieuKienTienQuyet> dieuKienTienQuyet;
 
     public List<DieuKienTienQuyet> getDieuKienTienQuyet() {
@@ -57,4 +49,8 @@ public class MonHoc {
         }
         return dieuKienTienQuyet;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "maKhoa")
+    private Khoa khoa;
 }

@@ -56,4 +56,8 @@ public class LopHoc {
         }
         return phieuDangKyLopHocList;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "maGiangVien")
+    private GiangVien giangVien;
 }
