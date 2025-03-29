@@ -28,25 +28,20 @@ public class Users {
     private String id;
 
     @NotNull
-    @Column(nullable = false)
     private String password;
 
     @NotNull
     @Email
-    @Column(unique = true, nullable = false)
     @Size(max = 50)
     private String email;
 
-    @Column(nullable = false)
     @NotNull
     @Size(max = 100)
     private String hoten;
 
-    @Column(nullable = false)
     @NotNull
     private Date ngaysinh;
 
-    @Column(nullable = false)
     @NotNull
     private String gioitinh;
 

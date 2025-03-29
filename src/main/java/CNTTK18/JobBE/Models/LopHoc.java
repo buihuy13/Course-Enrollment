@@ -1,6 +1,7 @@
 package CNTTK18.JobBE.Models;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -8,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -28,26 +30,31 @@ public class LopHoc {
     private String maLH;
 
     @NotNull
-    @Column(nullable = false)
     private Date ngayBatDau;
 
     @NotNull
-    @Column(nullable = false)
     private Date ngayKetThuc;
 
     @NotNull
-    @Column(nullable = false)
     private int hocKi;
 
     @NotNull
-    @Column(nullable = false)
     private String namHoc;
 
     @NotNull
-    @Column(nullable = false)
     private int soLuongSinhVien;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "maMonHoc")
     private MonHoc monHoc;
+
+    @OneToMany(mappedBy = "lopHoc", cascade = CascadeType.ALL)
+    private List<PhieuDangKyLopHoc> phieuDangKyLopHocList;
+
+    public List<PhieuDangKyLopHoc> getPhieuDangKyLopHocList() {
+        if (phieuDangKyLopHocList == null) {
+            phieuDangKyLopHocList = new java.util.ArrayList<>();
+        }
+        return phieuDangKyLopHocList;
+    }
 }

@@ -1,8 +1,5 @@
 package CNTTK18.JobBE.Models;
 
-import java.sql.Date;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -21,12 +18,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GiangVien extends Users {
 
-    @Column(nullable = false, unique = true)
     @NotNull
     @Size(max = 100)
     private String msgv;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "maKhoa")
     private Khoa khoa;
 }

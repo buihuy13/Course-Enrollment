@@ -29,5 +29,12 @@ public class Roles {
     private String roleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<Users> Users = new ArrayList<>();
+    private List<Users> Users;
+
+    public List<Users> getUsers() {
+        if (Users == null) {
+            Users = new ArrayList<>();
+        }
+        return Users;
+    }
 }

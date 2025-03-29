@@ -22,19 +22,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class ChuyenNganh {
-
+public class ChuyenNganh { 
     @Id
     private String maNganh;
 
     @NotNull
-    @Column(nullable = false, unique = true)
     private String tenNganh;
 
     @OneToMany(mappedBy = "chuyenNganh", cascade = CascadeType.ALL)
-    private List<SinhVien> sinhVienList = new ArrayList<>();
+    private List<SinhVien> sinhVienList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    public List<SinhVien> getSinhVienList() {
+        if (sinhVienList == null) {
+            sinhVienList = new ArrayList<>();
+        }
+        return sinhVienList;
+    }
+
+    @ManyToOne
     @JoinColumn(name = "maKhoa")
     private Khoa khoa;
 }

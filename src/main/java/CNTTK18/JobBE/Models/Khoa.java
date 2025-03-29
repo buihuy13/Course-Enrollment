@@ -28,13 +28,26 @@ public class Khoa {
     private String maKhoa;
 
     @NotNull
-    @Column(nullable = false, unique = true)
     @Size(max = 100)
     private String tenKhoa;
 
     @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
-    private List<ChuyenNganh> chuyenNganhList = new ArrayList<>();
+    private List<ChuyenNganh> chuyenNganhList;
+
+    public List<ChuyenNganh> getChuyenNganhList() {
+        if (chuyenNganhList == null) {
+            chuyenNganhList = new ArrayList<>();
+        }
+        return chuyenNganhList;
+    }
 
     @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
     private List<GiangVien> giangVienList = new ArrayList<>();
+
+    public List<GiangVien> getGiangVienList() {
+        if (giangVienList == null) {
+            giangVienList = new ArrayList<>();
+        }
+        return giangVienList;
+    }
 }

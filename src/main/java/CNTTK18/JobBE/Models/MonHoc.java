@@ -7,6 +7,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,24 +23,39 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
+@Inheritance(strategy = InheritanceType.JOINED)
 public class MonHoc {
     @Id
     @Size(max = 10)
     private String maMH;
 
-    @Column(nullable = false, unique = true)
     @NotNull
     @Size(max = 100)
     private String tenMH;
 
-    @Column(nullable = false)
     @NotNull
     private int soTinChi;
 
-    @Column(nullable = false)
     @NotNull
     private int soLuongSinhVienToiDa;
 
     @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
-    private List<MonHoc> monHocList = new ArrayList<>();
+    private List<MonHoc> monHocList;
+
+    public List<MonHoc> getMonHocList() {
+        if (monHocList == null) {
+            monHocList = new ArrayList<>();
+        }
+        return monHocList;
+    }
+
+    @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
+    private List<DieuKienTienQuyet> dieuKienTienQuyet;
+
+    public List<DieuKienTienQuyet> getDieuKienTienQuyet() {
+        if (dieuKienTienQuyet == null) {
+            dieuKienTienQuyet = new ArrayList<>();
+        }
+        return dieuKienTienQuyet;
+    }
 }
