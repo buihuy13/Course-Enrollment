@@ -2,9 +2,12 @@ package CNTTK18.JobBE.Models;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -43,4 +46,8 @@ public class LopHoc {
     @NotNull
     @Column(nullable = false)
     private int soLuongSinhVien;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "maMonHoc")
+    private MonHoc monHoc;
 }

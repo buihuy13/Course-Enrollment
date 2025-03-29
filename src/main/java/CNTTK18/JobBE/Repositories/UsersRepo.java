@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import CNTTK18.JobBE.Models.Users;
 
 @Repository
-public interface UsersRepo extends JpaRepository<Users, Integer> {
+public interface UsersRepo extends JpaRepository<Users, String> {
     Users findByUsername(String username);
 }

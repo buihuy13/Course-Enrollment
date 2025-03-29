@@ -7,9 +7,10 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,24 +22,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class MonHoc {
+public class ChuyenNganh {
+
     @Id
-    @Size(max = 10)
-    private String maMH;
+    private String maNganh;
 
+    @NotNull
     @Column(nullable = false, unique = true)
-    @NotNull
-    @Size(max = 100)
-    private String tenMH;
+    private String tenNganh;
 
-    @Column(nullable = false)
-    @NotNull
-    private int soTinChi;
+    @OneToMany(mappedBy = "chuyenNganh", cascade = CascadeType.ALL)
+    private List<SinhVien> sinhVienList = new ArrayList<>();
 
-    @Column(nullable = false)
-    @NotNull
-    private int soLuongSinhVienToiDa;
-
-    @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
-    private List<MonHoc> monHocList = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "maKhoa")
+    private Khoa khoa;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,22 +28,7 @@ public class SinhVien extends Users {
     @Size(max = 100)
     private String mssv;
 
-    @Column(nullable = false)
-    @NotNull
-    @Size(max = 100)
-    private String hoten;
-
-    @Column(nullable = false)
-    @NotNull
-    private Date ngaysinh;
-
-    private String chuyennganh;
-
-    @Column(nullable = false)
-    @NotNull
-    private String gioitinh;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "maDK", referencedColumnName = "maPDK")
-    private PhieuDangKy phieudangky;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "maCNganh")
+    private ChuyenNganh chuyenNganh;
 }
