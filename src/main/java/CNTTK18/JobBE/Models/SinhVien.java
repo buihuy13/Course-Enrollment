@@ -25,7 +25,7 @@ import lombok.Setter;
 public class SinhVien extends Users {
 
     @NotNull
-    @Size(max = 100)
+    @Size(max = 30)
     private String mssv;
 
     @ManyToOne

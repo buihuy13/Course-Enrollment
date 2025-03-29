@@ -21,15 +21,15 @@ import lombok.Setter;
 public class PhieuDangKyLopHoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "phieuDangKyId")
+    @JoinColumn(name = "maPDK")
     private PhieuDangKy phieuDangKy;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "lopHocId")
+    @JoinColumn(name = "maLH")
     private LopHoc lopHoc;
 }

@@ -24,6 +24,7 @@ public class Roles {
     private int id;
 
     @NotNull
+    @jakarta.validation.constraints.Size(max = 50)
     private String roleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)

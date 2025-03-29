@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Khoa {
 
     @Id
-    @Size(max = 10)
+    @Size(max = 30)
     private String maKhoa;
 
     @NotNull

@@ -22,7 +22,7 @@ import lombok.Setter;
 public class GiangVien extends Users {
 
     @NotNull
-    @Size(max = 100)
+    @Size(max = 30)
     private String msgv;
 
     @ManyToOne

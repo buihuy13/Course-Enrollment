@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +21,14 @@ import lombok.Setter;
 public class PhieuDangKy {
 
     @Id
+    @Size(max = 30)
     private String maPDK;
 
     @NotNull
     private int hocKi;
 
     @NotNull
+    @Size(max = 30)
     private String namHoc;
 
     @NotNull

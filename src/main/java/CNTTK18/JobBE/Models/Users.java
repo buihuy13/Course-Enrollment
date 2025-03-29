@@ -27,6 +27,7 @@ public class Users {
     private String id;
 
     @NotNull
+    @Size(max = 255)
     private String password;
 
     @NotNull
@@ -42,6 +43,7 @@ public class Users {
     private Date ngaysinh;
 
     @NotNull
+    @Size(max = 20)
     private String gioitinh;
 
     @ManyToOne

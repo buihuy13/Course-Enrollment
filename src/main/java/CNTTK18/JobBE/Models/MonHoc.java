@@ -27,7 +27,7 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class MonHoc {
     @Id
-    @Size(max = 10)
+    @Size(max = 30)
     private String maMH;
 
     @NotNull

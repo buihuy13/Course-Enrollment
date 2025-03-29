@@ -25,7 +25,7 @@ import lombok.Setter;
 public class LopHoc {
 
     @Id
-    @Size(max = 10)
+    @Size(max = 30)
     private String maLH;
 
     @NotNull
@@ -38,13 +38,14 @@ public class LopHoc {
     private int hocKi;
 
     @NotNull
+    @Size(max = 30)
     private String namHoc;
 
     @NotNull
     private int soLuongSinhVien;
 
     @ManyToOne
-    @JoinColumn(name = "maMonHoc")
+    @JoinColumn(name = "maMH")
     private MonHoc monHoc;
 
     @OneToMany(mappedBy = "lopHoc", cascade = CascadeType.ALL)
@@ -58,6 +59,6 @@ public class LopHoc {
     }
 
     @ManyToOne
-    @JoinColumn(name = "maGiangVien")
+    @JoinColumn(name = "maGV")
     private GiangVien giangVien;
 }
