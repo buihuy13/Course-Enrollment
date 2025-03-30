@@ -25,11 +25,11 @@ public class SinhVienMonDaDat {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maSV")
+    @JoinColumn(name = "MaSV")
     private SinhVien sinhVien;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maMH")
+    @JoinColumn(name = "MaMH")
     private MonDaDat monDaDat;
 }

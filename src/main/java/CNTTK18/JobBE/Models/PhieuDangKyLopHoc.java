@@ -25,11 +25,11 @@ public class PhieuDangKyLopHoc {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maPDK")
+    @JoinColumn(name = "MaPDK")
     private PhieuDangKy phieuDangKy;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maLH")
+    @JoinColumn(name = "MaLH")
     private LopHoc lopHoc;
 }

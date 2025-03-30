@@ -51,6 +51,6 @@ public class MonHoc {
     }
 
     @ManyToOne
-    @JoinColumn(name = "maKhoa")
+    @JoinColumn(name = "MaKhoa")
     private Khoa khoa;
 }

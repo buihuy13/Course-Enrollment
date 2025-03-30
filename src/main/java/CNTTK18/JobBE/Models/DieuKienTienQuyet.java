@@ -25,11 +25,11 @@ public class DieuKienTienQuyet {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maMH")
+    @JoinColumn(name = "MaMH")
     private MonHoc monHoc;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "maTQ")
+    @JoinColumn(name = "MaTQ")
     private MonTienQuyet monTienQuyet;
 }
