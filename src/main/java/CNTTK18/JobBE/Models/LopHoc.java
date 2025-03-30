@@ -45,7 +45,7 @@ public class LopHoc {
     private int soLuongSinhVien;
 
     @ManyToOne
-    @JoinColumn(name = "maMH")
+    @JoinColumn(name = "MaMH")
     private MonHoc monHoc;
 
     @OneToMany(mappedBy = "lopHoc", cascade = CascadeType.ALL)

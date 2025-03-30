@@ -47,6 +47,6 @@ public class Users {
     private String gioitinh;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "RoleId")
     private Roles role;
 }

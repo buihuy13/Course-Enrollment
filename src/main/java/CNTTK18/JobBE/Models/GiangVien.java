@@ -26,7 +26,7 @@ public class GiangVien extends Users {
     private String msgv;
 
     @ManyToOne
-    @JoinColumn(name = "maKhoa")
+    @JoinColumn(name = "MaKhoa")
     private Khoa khoa;
 
     @OneToMany(mappedBy = "giangVien", cascade = CascadeType.ALL)

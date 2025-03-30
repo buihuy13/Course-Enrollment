@@ -29,11 +29,11 @@ public class SinhVien extends Users {
     private String mssv;
 
     @ManyToOne
-    @JoinColumn(name = "maCNganh")
+    @JoinColumn(name = "MaNganh")
     private ChuyenNganh chuyenNganh;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "maPDK")
+    @JoinColumn(name = "MaPDK")
     private PhieuDangKy phieuDangKy;
 
     @OneToMany(mappedBy = "sinhVien", cascade = CascadeType.ALL)

@@ -28,6 +28,7 @@ public class ChuyenNganh {
     private String maNganh;
 
     @NotNull
+    @Size(max = 100)
     private String tenNganh;
 
     @OneToMany(mappedBy = "chuyenNganh", cascade = CascadeType.ALL)
@@ -41,6 +42,6 @@ public class ChuyenNganh {
     }
 
     @ManyToOne
-    @JoinColumn(name = "maKhoa")
+    @JoinColumn(name = "MaKhoa")
     private Khoa khoa;
 }
