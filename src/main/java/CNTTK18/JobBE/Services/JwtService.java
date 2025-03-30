@@ -1,7 +1,6 @@
 package CNTTK18.JobBE.Services;
 
 import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import CNTTK18.JobBE.Exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 
 @Service
@@ -58,46 +55,32 @@ public class JwtService {
     }
 
     //Lấy 1 claim từ token
-    private <T> T extractClaim(String token, Function<Claims, T> claimResolver) throws Exception {
+    private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
     }
 
     //Lấy tất cả claims từ token (Kiểm tra luôn cả chữ ký)
-    private Claims extractAllClaims(String token) throws InvalidTokenException {
-        try {
-            return Jwts.parser()
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
                 .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-        }
-        catch (ExpiredJwtException e)
-        {
-            throw e;
-        }
-        catch (MalformedJwtException e)
-        {
-            throw new MalformedJwtException("Token sai định dạng");
-        }
-        catch (Exception e)
-        {
-            throw new InvalidTokenException("Token lỗi");
-        }
     }
     
     //Kiểm tra token có hợp lệ không (hết hạn hay không)
-    public boolean validateToken(String token) throws Exception {
+    public boolean validateToken(String token) {
         return !isTokenExpired(token);
     }
 
     //Kiểm tra token có hết hạn không
-    private boolean isTokenExpired(String token) throws Exception {
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
     //Lấy thời gian hết hạn của token
-    private Date extractExpiration(String token) throws Exception {
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -116,27 +99,18 @@ public class JwtService {
     }
     
     public String refreshAccessToken(String refreshToken) throws Exception {
-        try {
-            // Kiểm tra token có hợp lệ không
-            Claims claims = extractAllClaims(refreshToken);
+         // Kiểm tra token có hợp lệ không
+         Claims claims = extractAllClaims(refreshToken);
             
-            // Kiểm tra loại token
-            if (!"refresh".equals(claims.get("tokenType"))) {
-                throw new InvalidTokenException("Refresh Token không hợp lệ");
-            }
-            
-            // Lấy thông tin người dùng từ token
-            String username = claims.getSubject();
-            
-            // Tạo access token mới
-            return generateToken(username);
-        } 
-        catch (ExpiredJwtException e)
-        {
-            throw e;
-        }
-        catch (Exception e) {
-            throw e;
-        }
+         // Kiểm tra loại token
+         if (!"refresh".equals(claims.get("tokenType"))) {
+             throw new InvalidTokenException("Refresh Token không hợp lệ");
+         }
+         
+         // Lấy thông tin người dùng từ token
+         String username = claims.getSubject();
+         
+         // Tạo access token mới
+         return generateToken(username);
     }
 }
