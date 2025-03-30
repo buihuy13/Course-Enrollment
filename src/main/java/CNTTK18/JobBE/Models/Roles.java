@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +24,16 @@ public class Roles {
     private int id;
 
     @NotNull
-    @Column(unique = true, nullable = false)
+    @jakarta.validation.constraints.Size(max = 50)
     private String roleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<Users> Users = new ArrayList<>();
+    private List<Users> Users;
+
+    public List<Users> getUsers() {
+        if (Users == null) {
+            Users = new ArrayList<>();
+        }
+        return Users;
+    }
 }
