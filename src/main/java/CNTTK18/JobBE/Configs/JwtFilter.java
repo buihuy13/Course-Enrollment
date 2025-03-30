@@ -17,11 +17,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import CNTTK18.JobBE.Exception.InvalidTokenException;
 import CNTTK18.JobBE.Services.JwtService;
 import CNTTK18.JobBE.Services.MyUserDetailsService;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,21 +56,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 catch (UsernameNotFoundException e)
                 {
                     handleAuthError(response, HttpStatus.UNAUTHORIZED, e.getMessage());
-                    return;
-                }
-                catch (InvalidTokenException e)
-                {
-                    handleAuthError(response, HttpStatus.UNAUTHORIZED, e.getMessage());
-                    return;
-                }
-                catch (ExpiredJwtException e)
-                {
-                    handleAuthError(response, HttpStatus.UNAUTHORIZED, e.getMessage());
-                    return;
-                }
-                catch (MalformedJwtException e)
-                {
-                    handleAuthError(response, HttpStatus.BAD_REQUEST, e.getMessage());
                     return;
                 }
                 catch (Exception e)
