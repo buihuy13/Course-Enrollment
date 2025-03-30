@@ -4,11 +4,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
 import CNTTK18.JobBE.Models.TokenResponse;
 import CNTTK18.JobBE.Repositories.UsersRepo;
 
+@Service
 public class AuthService {
     private final UsersRepo repo;
     private final AuthenticationManager authenticationManager;
@@ -21,18 +23,8 @@ public class AuthService {
     }
 
     public TokenResponse login(LoginDTO model) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
-            return new TokenResponse(jwtService.generateToken(model.getUsername()), jwtService.generateRefreshToken(model.getUsername()));
-        }
-        catch (BadCredentialsException e)
-        {
-            throw e;
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
+        return new TokenResponse(jwtService.generateToken(model.getUsername()), jwtService.generateRefreshToken(model.getUsername()));
     }
 
 }

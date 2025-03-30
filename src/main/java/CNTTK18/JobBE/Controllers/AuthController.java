@@ -19,11 +19,13 @@ public class AuthController {
         this.authService = authService;
     }
 
+    record LoginResponse(TokenResponse tokens, boolean rememberMe) {}
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO model) {
         try {
             TokenResponse tokens = authService.login(model);
-            return ResponseEntity.ok(tokens);
+            return ResponseEntity.ok(new LoginResponse(tokens, model.isRememberMe()));
         }
         catch (BadCredentialsException e)
         {
