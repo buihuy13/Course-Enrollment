@@ -3,6 +3,7 @@ package CNTTK18.JobBE.Services;
 import org.springframework.stereotype.Service;
 
 import CNTTK18.JobBE.DTO.Api.UserDetailsDTO;
+import CNTTK18.JobBE.Data.RoleName;
 import CNTTK18.JobBE.Models.GiangVien;
 import CNTTK18.JobBE.Models.SinhVien;
 import CNTTK18.JobBE.Models.Users;
@@ -42,12 +43,12 @@ public class ApiService {
         response.setDateOfBirth(user.getNgaysinh());
         response.setSex(user.getGioitinh());
         response.setRole(user.getRole().getRoleName());
-        if (user.getRole().getRoleName() == "SINHVIEN") 
+        if (user.getRole().getRoleName().equals(RoleName.sinhvien)) 
         {
             SinhVien sinhVien = sinhVienRepo.findByEmail(user.getEmail());
             response.setMs(sinhVien.getMssv());
         } 
-        else if (user.getRole().getRoleName() == "GIANGVIEN") 
+        else if (user.getRole().getRoleName().equals(RoleName.giangvien)) 
         {
             GiangVien giangVien = giangVienRepo.findByEmail(user.getEmail());
             response.setMs(giangVien.getMsgv());
