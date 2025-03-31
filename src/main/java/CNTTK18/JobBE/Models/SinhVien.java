@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Table(name = "sinhvien")
 public class SinhVien extends Users {
 
     @NotNull
@@ -29,11 +30,11 @@ public class SinhVien extends Users {
     private String mssv;
 
     @ManyToOne
-    @JoinColumn(name = "MaNganh")
+    @JoinColumn(name = "manganh")
     private ChuyenNganh chuyenNganh;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "MaPDK")
+    @JoinColumn(name = "mapdk")
     private PhieuDangKy phieuDangKy;
 
     @OneToMany(mappedBy = "sinhVien", cascade = CascadeType.ALL)

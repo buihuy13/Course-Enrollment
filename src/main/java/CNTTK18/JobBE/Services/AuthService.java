@@ -1,7 +1,6 @@
 package CNTTK18.JobBE.Services;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -27,4 +26,11 @@ public class AuthService {
         return new TokenResponse(jwtService.generateToken(model.getUsername()), jwtService.generateRefreshToken(model.getUsername()));
     }
 
+    public boolean logout(String email) {
+        var user = repo.findByEmail(email);
+        if (user == null) {
+            return false;
+        }
+        return true;
+    }
 }

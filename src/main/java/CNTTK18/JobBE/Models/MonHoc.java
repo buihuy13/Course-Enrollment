@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -11,6 +12,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,21 +25,25 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Table(name = "monhoc")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class MonHoc {
     @Id
     @Size(max = 30)
+    @Column(name = "mamh")
     private String maMH;
 
     @NotNull
     @Size(max = 100)
+    @Column(name = "tenmh")
     private String tenMH;
 
     @NotNull
+    @Column(name = "sotinchi")
     private int soTinChi;
 
     @NotNull
+    @Column(name = "soluongsinhvientoida")
     private int soLuongSinhVienToiDa;
 
     @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
@@ -51,6 +57,6 @@ public class MonHoc {
     }
 
     @ManyToOne
-    @JoinColumn(name = "MaKhoa")
+    @JoinColumn(name = "makhoa")
     private Khoa khoa;
 }

@@ -14,5 +14,5 @@ public class LoginDTO {
     private String username;
     @NotBlank
     private String password;
-    private boolean rememberMe;
+    private boolean rememberme;
 }

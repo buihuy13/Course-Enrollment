@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Table(name = "phieudangkylophoc")
 public class PhieuDangKyLopHoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +26,11 @@ public class PhieuDangKyLopHoc {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "MaPDK")
+    @JoinColumn(name = "mapdk")
     private PhieuDangKy phieuDangKy;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "MaLH")
+    @JoinColumn(name = "malh")
     private LopHoc lopHoc;
 }

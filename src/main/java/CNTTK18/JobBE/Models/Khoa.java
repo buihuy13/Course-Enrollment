@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,15 +21,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Table(name = "khoa")
 public class Khoa {
 
     @Id
     @Size(max = 30)
+    @Column(name = "makhoa")
     private String maKhoa;
 
     @NotNull
     @Size(max = 100)
+    @Column(name = "tenkhoa")
     private String tenKhoa;
 
     @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)

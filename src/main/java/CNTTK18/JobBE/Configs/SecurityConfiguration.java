@@ -38,7 +38,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(customizer -> customizer.disable()) //disable csrf
-                   .authorizeHttpRequests(request -> request.requestMatchers("/auth/register","/auth/login")
+                   .authorizeHttpRequests(request -> request.requestMatchers("/auth/register","/auth/login", "/api/accesstoken",
+                                                                              "/api/user")
                                                             .permitAll() //permit register and login
                                                             .anyRequest().authenticated()) //other request need authentication
                    .httpBasic(Customizer.withDefaults()) //test with postman
@@ -75,7 +76,7 @@ public class SecurityConfiguration {
         //allowed domain
         corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         corsConfig.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-        corsConfig.setAllowedHeaders(Arrays.asList("Content-Type","Authorization", "X-Requested-With", "X-Refresh-Token"));
+        corsConfig.setAllowedHeaders(Arrays.asList("Content-Type","Authorization", "X-Requested-With", "Refresh-Token"));
         corsConfig.setAllowCredentials(true);
         corsConfig.setMaxAge(3600L);
 

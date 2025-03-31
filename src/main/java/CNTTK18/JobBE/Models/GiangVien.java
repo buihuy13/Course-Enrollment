@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "giangvien")
 public class GiangVien extends Users {
 
     @NotNull
@@ -26,7 +28,7 @@ public class GiangVien extends Users {
     private String msgv;
 
     @ManyToOne
-    @JoinColumn(name = "MaKhoa")
+    @JoinColumn(name = "makhoa")
     private Khoa khoa;
 
     @OneToMany(mappedBy = "giangVien", cascade = CascadeType.ALL)
