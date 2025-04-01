@@ -1,10 +1,10 @@
 package CNTTK18.JobBE.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import CNTTK18.JobBE.DTO.Password;
+import CNTTK18.JobBE.DTO.User.PasswordDTO;
 import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.GiangVienRepo;
 import CNTTK18.JobBE.Repositories.SinhVienRepo;
@@ -12,14 +12,19 @@ import CNTTK18.JobBE.Repositories.UsersRepo;
 
 @Service
 public class UsersService {
-    @Autowired
-    private UsersRepo userrepo;
-    @Autowired
-    private SinhVienRepo svrepo;
-    @Autowired
-    private GiangVienRepo gvrepo;
-    @Autowired
-    private BCryptPasswordEncoder encoder;
+
+    private final UsersRepo userrepo;
+    private final SinhVienRepo svrepo;
+    private final GiangVienRepo gvrepo;
+    private final BCryptPasswordEncoder encoder;
+
+    public UsersService(UsersRepo userrepo, SinhVienRepo svrepo, GiangVienRepo gvrepo, BCryptPasswordEncoder encoder)
+    {
+        this.userrepo = userrepo;
+        this.svrepo = svrepo;
+        this.gvrepo = gvrepo;
+        this.encoder = encoder;
+    }
 
     public Users getUserByID(String id) {
         Users user = userrepo.findUsersById(id);
@@ -31,23 +36,16 @@ public class UsersService {
             return user;
     }
 
-    public boolean correctPass(Password pass) {
-        if (pass.getEmail() == null || pass.getOldpassword() == null) {
-            return false;
-        }
+    public void updatePassword(PasswordDTO pass) {
         Users user = userrepo.findByEmail(pass.getEmail());
         if (user == null) {
-            return false; // Người dùng không tồn tại
+            throw new UsernameNotFoundException("Không tìm thấy user"); // Người dùng không tồn tại
         }
-        return encoder.matches(pass.getOldpassword(), user.getPassword());
-    }
-
-    public void updatePassword(Users user, String newPassword) {
-        user.setPassword(encoder.encode(newPassword)); // Mã hóa mật khẩu mới
+        if (encoder.matches(pass.getOldpassword(), user.getPassword()) == false)
+        {
+            throw new IllegalArgumentException("Mật khẩu hiện tại và mật khẩu kiểm tra không trùng nhau");
+        }
+        user.setPassword(encoder.encode(pass.getNewpassword())); // Mã hóa mật khẩu mới
         userrepo.save(user);
-    }
-
-    public Users findByEmail(String email) {
-        return userrepo.findByEmail(email);
     }
 }
