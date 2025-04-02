@@ -10,6 +10,7 @@ import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.GiangVienRepo;
 import CNTTK18.JobBE.Repositories.SinhVienRepo;
 import CNTTK18.JobBE.Repositories.UsersRepo;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ApiService {
@@ -34,10 +35,11 @@ public class ApiService {
         String email = jwtService.extractUserName(accessToken);
         Users user = repo.findByEmail(email);
         if (user == null) {
-            return null;
+            throw new EntityNotFoundException("User not found with email: " + email);
         }
 
         var response = new UserDetailsDTO();
+        response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setName(user.getHoten());
         response.setDateOfBirth(user.getNgaysinh());
