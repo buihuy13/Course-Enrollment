@@ -20,9 +20,9 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //When login, Spring will call this method to get user by username
-        Users user = usersRepo.findByUsername(username);
+        Users user = usersRepo.findByEmail(email);
 
         if (user == null)
         {
