@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
 import CNTTK18.JobBE.Models.TokenResponse;
+import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Services.AuthService;
 import jakarta.validation.Valid;
 
@@ -21,14 +22,15 @@ public class AuthController {
         this.authService = authService;
     }
 
-    record LoginResponse(TokenResponse tokens, boolean rememberMe) {}
+    record LoginResponse(TokenResponse tokens, boolean rememberMe, String role, String id) {}
     record MessageResponse(String message) {}
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO model) {
         try {
             TokenResponse tokens = authService.login(model);
-            return ResponseEntity.ok(new LoginResponse(tokens, model.isRememberme()));
+            Users user = authService.getUserByEmail(model.getUsername());
+            return ResponseEntity.ok(new LoginResponse(tokens, model.isRememberme(),user.getRole().getRoleName(), user.getId()));
         }
         catch (BadCredentialsException e)
         {
