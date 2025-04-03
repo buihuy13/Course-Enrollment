@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
 import CNTTK18.JobBE.Models.TokenResponse;
+import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.UsersRepo;
 
 @Service
@@ -22,6 +23,7 @@ public class AuthService {
     }
 
     public TokenResponse login(LoginDTO model) {
+        @SuppressWarnings("unused")
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
         return new TokenResponse(jwtService.generateToken(model.getUsername()), jwtService.generateRefreshToken(model.getUsername()));
     }
@@ -32,5 +34,10 @@ public class AuthService {
             return false;
         }
         return true;
+    }
+
+    public Users getUserByEmail(String email)
+    {
+        return repo.findByEmail(email);
     }
 }
