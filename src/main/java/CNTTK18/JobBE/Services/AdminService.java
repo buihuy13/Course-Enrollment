@@ -41,69 +41,50 @@ public class AdminService {
     }
 
     public UserDetailsDTO getUserById(String userId) {
-        try {
-            Users user = usersRepo.findUsersById(userId);
+        Users user = usersRepo.findUsersById(userId);
 
-            if(user == null) {
-                throw new EntityNotFoundException("Not Found User!" );
-            }
-
-            UserDetailsDTO userDetailsDTO = Utils.mapUserEntityToUserDetailsDTO(user);
-
-            return userDetailsDTO;
-        } catch (EntityNotFoundException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException("Error getting User " + e.getMessage());
+        if(user == null) {
+            throw new EntityNotFoundException("Not Found User!" );
         }
+
+        UserDetailsDTO userDetailsDTO = Utils.mapUserEntityToUserDetailsDTO(user);
+
+        return userDetailsDTO;
     }
 
     public UserDetailsDTO createUser(Users userRequest, int roleId) {
-        try {
-            Users newUser = new Users();
-            Roles role = roleRepo.findById(roleId).orElseThrow(() -> new EntityNotFoundException("Role with id" + roleId + "Not Found!"));
+        Users newUser = new Users();
+        Roles role = roleRepo.findById(roleId).orElseThrow(() -> new EntityNotFoundException("Role with id" + roleId + "Not Found!"));
             
-            newUser.setId(userRequest.getId());
-            newUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            newUser.setHoten(userRequest.getHoten());
-            newUser.setEmail(userRequest.getEmail());
-            newUser.setGioitinh(userRequest.getGioitinh());
-            newUser.setNgaysinh(userRequest.getNgaysinh());
-            newUser.setRole(role);
+        newUser.setId(userRequest.getId());
+        newUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        newUser.setHoten(userRequest.getHoten());
+        newUser.setEmail(userRequest.getEmail());
+        newUser.setGioitinh(userRequest.getGioitinh());
+        newUser.setNgaysinh(userRequest.getNgaysinh());
+        newUser.setRole(role);
             
-            Users userCreated = usersRepo.save(newUser);
-            UserDetailsDTO userDTO = Utils.mapUserEntityToUserDetailsDTO(userCreated);
+        Users userCreated = usersRepo.save(newUser);
+        UserDetailsDTO userDTO = Utils.mapUserEntityToUserDetailsDTO(userCreated);
             
-            return userDTO;
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Roles", "id", roleId);
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating user " + e.getMessage());
-        }
+        return userDTO;
     }
 
     public UserDetailsDTO updateUser(String userId, Users userRequest) {
-        try {
-            Users user = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("Not Found User!")); 
+        Users user = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("Not Found User!")); 
     
-            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            user.setEmail(userRequest.getEmail());
-            user.setHoten(userRequest.getHoten());
-            user.setNgaysinh(userRequest.getNgaysinh());
-            user.setGioitinh(userRequest.getGioitinh());
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        user.setEmail(userRequest.getEmail());
+        user.setHoten(userRequest.getHoten());
+        user.setNgaysinh(userRequest.getNgaysinh());
+        user.setGioitinh(userRequest.getGioitinh());
 
 
-            Users userUpdated = usersRepo.save(user);
+        Users userUpdated = usersRepo.save(user);
 
-            UserDetailsDTO userDetailsDTO = Utils.mapUserEntityToUserDetailsDTO(userUpdated);
+        UserDetailsDTO userDetailsDTO = Utils.mapUserEntityToUserDetailsDTO(userUpdated);
 
-            return userDetailsDTO;
-            
-        } catch (EntityNotFoundException e) { // trả về 404
-            throw new ResourceNotFoundException("Users", "id", userId);
-        } catch (Exception e) { // trả về 500
-            throw new RuntimeException("Error updating user " + e.getMessage());
-        }
+        return userDetailsDTO;
     }
 
     public void deleteUser(String userId) {

@@ -39,3 +39,4 @@ out/
 
 #ENV File where contains sensitive information
 .env
+build.gradle.kts
