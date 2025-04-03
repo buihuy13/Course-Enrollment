@@ -39,4 +39,6 @@ out/
 
 #ENV File where contains sensitive information
 .env
+
+# Ignore Gradle build script
 build.gradle.kts
