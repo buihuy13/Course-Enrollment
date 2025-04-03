@@ -13,6 +13,6 @@ public class PasswordDTO {
     private String email;
     @NotBlank
     private String oldpassword;
-    @NotBlank 
+    @NotBlank
     private String newpassword;
 }
