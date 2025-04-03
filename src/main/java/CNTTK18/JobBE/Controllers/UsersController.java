@@ -24,14 +24,15 @@ public class UsersController {
 
     private final UsersService service;
 
-    public UsersController(UsersService service)
-    {
+    public UsersController(UsersService service) {
         this.service = service;
     }
-    record MessageResponse(String message){}
+
+    record MessageResponse(String message) {
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String id) {
+    public ResponseEntity<?> getUserByID(@PathVariable String id) {
         try {
             UserDetailsDTO userobj = new UserDetailsDTO();
             Users user = service.getUserByID(id);
@@ -51,9 +52,8 @@ public class UsersController {
                 return new ResponseEntity<>(userobj, HttpStatus.OK);
             } else
                 return new ResponseEntity<>(new MessageResponse("Not found user"), HttpStatus.NOT_FOUND);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>(new MessageResponse("Not found user"), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new MessageResponse("Fail to get user"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -62,17 +62,13 @@ public class UsersController {
         try {
             service.updatePassword(pass);
             return new ResponseEntity<>(new MessageResponse("Mật khẩu được cập nhật thành công."), HttpStatus.OK);
-        }
-        catch (UsernameNotFoundException e)
-        {
-            return new ResponseEntity<>(new MessageResponse("Không tìm thấy user với email đó"), HttpStatus.UNAUTHORIZED);
-        }
-        catch (IllegalArgumentException e)
-        {
-            return new ResponseEntity<>(new MessageResponse("Mật khẩu cũ và mật khẩu hiện tại không trùng nhau"), HttpStatus.CONFLICT);
-        }
-        catch (Exception e)
-        {
+        } catch (UsernameNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse("Không tìm thấy user với email đó"),
+                    HttpStatus.UNAUTHORIZED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(new MessageResponse("Mật khẩu cũ và mật khẩu hiện tại không trùng nhau"),
+                    HttpStatus.CONFLICT);
+        } catch (Exception e) {
             return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
