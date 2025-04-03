@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors(cors -> cors.configurationSource(CorsConfigurationSource())) // Thêm CORS
+        return http.cors(cors -> cors.configurationSource(corsConfigurationSource())) // Thêm CORS
                    .csrf(customizer -> customizer.disable()) //disable csrf
                    .authorizeHttpRequests(request -> request.requestMatchers("/register","/login")
                                                             .permitAll() //permit register and login
@@ -70,7 +70,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public CorsConfigurationSource CorsConfigurationSource()
+    public CorsConfigurationSource corsConfigurationSource()
     {
         CorsConfiguration corsConfig = new CorsConfiguration();
         //allowed domain
