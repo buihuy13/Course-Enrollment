@@ -47,7 +47,6 @@ public class AuthController {
         try {
             String email = request.email();
             boolean result = authService.logout(email);
-            System.out.println("This is email: " + email);
             if (result == true)
             {
                 return ResponseEntity.ok(new MessageResponse("Logout successful"));
