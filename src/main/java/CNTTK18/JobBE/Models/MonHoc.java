@@ -42,10 +42,6 @@ public class MonHoc {
     @Column(name = "sotinchi")
     private int soTinChi;
 
-    @NotNull
-    @Column(name = "soluongsinhvientoida")
-    private int soLuongSinhVienToiDa;
-
     @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
     private List<DieuKienTienQuyet> dieuKienTienQuyet;
 
