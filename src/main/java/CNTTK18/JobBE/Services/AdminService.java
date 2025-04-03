@@ -2,7 +2,6 @@ package CNTTK18.JobBE.Services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +18,13 @@ import jakarta.persistence.EntityNotFoundException;
 public class AdminService {
     private final UsersRepo usersRepo;
     private final RoleRepo roleRepo;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AdminService(UsersRepo usersRepo, RoleRepo roleRepo) {
+    public AdminService(UsersRepo usersRepo, RoleRepo roleRepo, BCryptPasswordEncoder passwordEncoder) {
         this.usersRepo = usersRepo;
         this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
     }
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     public List<UserDetailsDTO> getAllUsers() {
         List<Users> userList = usersRepo.findAll();
