@@ -37,9 +37,10 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(customizer -> customizer.disable()) //disable csrf
+        return http.cors(cors -> cors.configurationSource(CorsConfigurationSource())) // Thêm CORS
+                   .csrf(customizer -> customizer.disable()) //disable csrf
                    .authorizeHttpRequests(request -> request.requestMatchers("/auth/register","/auth/login", "/api/accesstoken",
-                                                                              "/api/user")
+                                                                                "/api/user")
                                                             .permitAll() //permit register and login
                                                             .anyRequest().authenticated()) //other request need authentication
                    .httpBasic(Customizer.withDefaults()) //test with postman
