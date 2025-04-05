@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.Khoa.KhoaDTO;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Services.KhoaService;
-import jakarta.servlet.http.HttpSessionAttributeListener;
 
 @RestController
 @RequestMapping("/khoa")
@@ -29,14 +28,17 @@ public class KhoaController {
         service = sv;
     }
 
+    public record message(String message) {
+    }
+
     @GetMapping("")
     public ResponseEntity<?> getAllKhoa() {
         List<KhoaDTO> khoa = new ArrayList<>();
         khoa = service.getAllKhoa();
-        if (khoa != null) {
+        if (khoa.isEmpty() != true) {
             return new ResponseEntity<>(khoa, HttpStatus.OK);
         } else
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(new message("Không có khoa nào để trả về"), HttpStatus.OK);
     }
 
     @GetMapping("/{makhoa}")
@@ -47,9 +49,6 @@ public class KhoaController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-    }
-
-    public record message(String message) {
     }
 
     @PostMapping("")
