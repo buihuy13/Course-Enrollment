@@ -30,7 +30,7 @@ public class ClassService {
     }
 
     public LopHoc getClassById(String id) {
-        LopHoc lophoc = classRepo.findClassById(id);
+        LopHoc lophoc = classRepo.findLopHocById(id);
         if (lophoc == null) {
             throw new EntityNotFoundException("Class not found with id: " + id);
         }
@@ -39,7 +39,7 @@ public class ClassService {
     }
 
     public void updateClassById(String id, ClassDTO updatedClass) {
-        LopHoc existingClass = classRepo.findClassById(id);
+        LopHoc existingClass = classRepo.findLopHocById(id);
         if (existingClass == null) {
             throw new EntityNotFoundException("Class not found with id: " + id);
         }
@@ -61,7 +61,7 @@ public class ClassService {
     }
 
     public void deleteClassById(String id) {
-        LopHoc existingClass = classRepo.findClassById(id);
+        LopHoc existingClass = classRepo.findLopHocById(id);
         if (existingClass == null) {
             throw new EntityNotFoundException("Class not found with id: " + id);
         }

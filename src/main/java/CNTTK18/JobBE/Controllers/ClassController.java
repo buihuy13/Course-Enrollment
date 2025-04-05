@@ -16,13 +16,13 @@ import CNTTK18.JobBE.Services.ClassService;
 
 @RestController
 public class ClassController {
-    record MessageResponse(String message) {}
-
     private final ClassService classService;
 
     public ClassController(ClassService classService) {
         this.classService = classService;
     }
+
+    record MessageResponse(String message) {}
 
     @GetMapping("classes")
     public ResponseEntity<?> getAllClasses() {
