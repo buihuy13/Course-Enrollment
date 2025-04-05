@@ -9,7 +9,6 @@ import CNTTK18.JobBE.Exception.DuplicateEntityException;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Repositories.KhoaRepo;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 
 @Service
 public class KhoaService {
