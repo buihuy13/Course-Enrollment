@@ -33,7 +33,7 @@ public class ApiService {
 
     public UserDetailsDTO getUserByAccessToken(String accessToken) throws Exception {
         String email = jwtService.extractUserName(accessToken);
-        Users user = repo.findByEmail(email);
+        Users user = repo.findByEmail(email); 
         if (user == null) {
             throw new EntityNotFoundException("User not found with email: " + email);
         }
@@ -49,11 +49,13 @@ public class ApiService {
         {
             SinhVien sinhVien = sinhVienRepo.findByEmail(user.getEmail());
             response.setMs(sinhVien.getMssv());
+            response.setTen(sinhVien.getChuyenNganh().getTenNganh());
         } 
         else if (user.getRole().getRoleName().equals(RoleName.giangvien)) 
         {
             GiangVien giangVien = giangVienRepo.findByEmail(user.getEmail());
             response.setMs(giangVien.getMsgv());
+            response.setTen(giangVien.getKhoa().getTenKhoa());
         }
         return response;
     }

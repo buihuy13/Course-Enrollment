@@ -19,4 +19,5 @@ public class UserDetailsDTO {
     private String sex;
     private String role;
     private String ms;
+    private String ten;
 }
