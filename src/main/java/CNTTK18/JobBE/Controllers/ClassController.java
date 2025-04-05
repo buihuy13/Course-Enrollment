@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import CNTTK18.JobBE.DTO.Class.ClassDTO;
 import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Services.ClassService;
 
@@ -35,12 +37,14 @@ public class ClassController {
     }
 
     @PutMapping("classes/{id}")
-    public ResponseEntity<?> updateClassById(String id) {
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<?> updateClassById(@PathVariable String id, @RequestBody ClassDTO updatedClass) {
+        classService.updateClassById(id, updatedClass);
+        return ResponseEntity.ok(new MessageResponse("Cập nhật lớp học thành công!"));
     }
 
     @DeleteMapping("classes/{id}")
     public ResponseEntity<?> deleteClassById(String id) {
+        classService.deleteClassById(id);
         return ResponseEntity.ok("ok");
     }
 }
