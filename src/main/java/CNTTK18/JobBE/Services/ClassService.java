@@ -1,6 +1,9 @@
 package CNTTK18.JobBE.Services;
 
+import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -75,42 +78,89 @@ public class ClassService {
         classRepo.delete(existingClass);
     }
 
-    // public void processExcelFile(MultipartFile file) throws IOException {
-    //     try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
-    //         Sheet sheet = workbook.getSheetAt(0);
+    public void processExcelFile(MultipartFile file) throws IOException {
+        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+            Sheet sheet = workbook.getSheetAt(0);
             
-    //         // Bỏ qua dòng header
-    //         Iterator<Row> rows = sheet.iterator();
-    //         if (rows.hasNext()) {
-    //             rows.next(); // Skip header row
-    //         }
+            // Bỏ qua dòng header
+            Iterator<Row> rows = sheet.iterator();
+            if (rows.hasNext()) {
+                rows.next(); // Skip header row
+            }
             
-    //         List<LopHoc> classes = new ArrayList<>();
+            List<LopHoc> classes = new ArrayList<>();
             
-    //         while (rows.hasNext()) {
-    //             Row currentRow = rows.next();
+            while (rows.hasNext()) {
+                Row currentRow = rows.next();
                 
-    //             // Giả sử Entity có các trường id, name, description
-    //             LopHoc lophoc = new LopHoc();
+                // Giả sử Entity có các trường id, name, description
+                LopHoc lophoc = new LopHoc();
                 
-    //             // Đọc dữ liệu từ các ô trong hàng hiện tại
-    //             if (currentRow.getCell(0) != null) {
-    //                 entity.setId((long) currentRow.getCell(0).getNumericCellValue());
-    //             }
+                // Đọc dữ liệu từ các ô trong hàng hiện tại
+                if (currentRow.getCell(1) != null) {
+                    MonHoc monHoc = monHocRepo.findMonHocByMaMH(currentRow.getCell(1).getStringCellValue());
+                    if (monHoc == null) {
+                        throw new EntityNotFoundException("MonHoc not found with id: " + currentRow.getCell(1).getStringCellValue());
+                    }
+                    lophoc.setMonHoc(monHoc);
+                }
                 
-    //             if (currentRow.getCell(1) != null) {
-    //                 entity.setName(currentRow.getCell(1).getStringCellValue());
-    //             }
+                if (currentRow.getCell(2) != null) {
+                    lophoc.setMaLH(currentRow.getCell(2).getStringCellValue());
+                }
                 
-    //             if (currentRow.getCell(2) != null) {
-    //                 entity.setDescription(currentRow.getCell(2).getStringCellValue());
-    //             }
+                if (currentRow.getCell(4) != null) {
+                    GiangVien giangVien = giangVienRepo.findGiangVienById(currentRow.getCell(4).getStringCellValue());
+                    if (giangVien == null) {
+                        throw new EntityNotFoundException("GiangVien not found with id: " + currentRow.getCell(4).getStringCellValue());
+                    }
+                    lophoc.setGiangVien(giangVien);
+                }
+
+                if (currentRow.getCell(6) != null) {
+                    lophoc.setSoLuongSinhVien((int) currentRow.getCell(6).getNumericCellValue());
+                }
+
+                //Tong so tin chi cua lop do
+                // if (currentRow.getCell(7) != null) {
+                //     lophoc.set(currentRow.getCell(7).getStringCellValue());
+                // }
+
+                //hoc vao thu may
+                // if (currentRow.getCell(8) != null) {
+                //     lophoc.setNgayBatDau(currentRow.getCell(8).getDateCellValue());
+                // }
+
+                //so tiet hoc 
+                // if (currentRow.getCell(9) != null) {
+                //     lophoc.setNgayKetThuc(currentRow.getCell(9).getDateCellValue());
+                // }
+
+                //hoc ky
+                if (currentRow.getCell(10) != null) {
+                    lophoc.setHocKi((int) currentRow.getCell(10).getNumericCellValue());
+                }
+
+                //nam hoc
+                // if (currentRow.getCell(11) != null) {
+                //     lophoc.setNamHoc(currentRow.getCell(11).getStringCellValue());
+                // }
                 
-    //             entities.add(entity);
-    //         }
+                //ngay bat dau
+                if (currentRow.getCell(12) != null) {
+                    lophoc.setNgayBatDau((Date) currentRow.getCell(12).getDateCellValue());
+                }
+
+                //ngay ket thuc
+                if (currentRow.getCell(13) != null) {
+                    lophoc.setNgayKetThuc((Date) currentRow.getCell(13).getDateCellValue());
+                }
+
+                classes.add(lophoc);
+            }
             
-    //         // Lưu danh sách entities vào database
-    //         entityRepository.saveAll(entities);
-    //     }
-    // }
+            // Lưu danh sách entities vào database
+            classRepo.saveAll(classes);
+        }
+    }
 }
