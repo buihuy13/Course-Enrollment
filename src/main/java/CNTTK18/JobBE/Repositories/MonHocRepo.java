@@ -8,6 +8,6 @@ import CNTTK18.JobBE.Models.MonHoc;
 @Repository
 public interface MonHocRepo extends JpaRepository<MonHoc, String> {
 
-    MonHoc findMonHocById(String mamh);
+    MonHoc findMonHocByMaMH(String mamh);
 
 }

@@ -7,5 +7,5 @@ import CNTTK18.JobBE.Models.LopHoc;
 
 @Repository
 public interface ClassRepo extends JpaRepository<LopHoc, String> {
-    LopHoc findLopHocById(String id);
+    LopHoc findLopHocByMaLH(String malh);
 }

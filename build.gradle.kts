@@ -41,6 +41,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-mysql")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("io.github.cdimascio:dotenv-java:3.2.0")
+	implementation("org.apache.poi:poi:5.3.0")
+	implementation("org.apache.poi:poi-ooxml:5.3.0")
 }
 
 tasks.withType<Test> {
