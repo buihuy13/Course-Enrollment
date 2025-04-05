@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.Khoa.KhoaDTO;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Services.KhoaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/khoa")
@@ -44,43 +45,25 @@ public class KhoaController {
     @GetMapping("/{makhoa}")
     public ResponseEntity<?> getKhoaByMaKhoa(@PathVariable String makhoa) {
         KhoaDTO khoa = service.getKhoaByMaKhoa(makhoa);
-        if (khoa != null) {
-            return new ResponseEntity<>(khoa, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(khoa, HttpStatus.OK);
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createKhoa(@RequestBody Khoa khoa) {
-        if (khoa.getMaKhoa() != null && khoa.getTenKhoa() != null) {
-            Khoa a = service.createKhoa(khoa);
-            if (a != null) {
-                return new ResponseEntity<>(a, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(new message("Tạo khoa thất bại"), HttpStatus.BAD_REQUEST);
-            }
-        } else
-            return new ResponseEntity<>(new message("Mã khoa hoặc tên khoa bị null"), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createKhoa(@Valid @RequestBody Khoa khoa) {
+        Khoa a = service.createKhoa(khoa);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     @PutMapping("/{makhoa}")
     public ResponseEntity<?> updateKhoa(@RequestBody Khoa khoa, @PathVariable String makhoa) {
-        if (service.getKhoaByMaKhoa(makhoa) != null) {
-            service.updateKhoaByMaKhoa(khoa, makhoa);
-            return new ResponseEntity<>(new message("Update thành công!"), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new message("Không tìm thấy khoa cần update!"), HttpStatus.NOT_FOUND);
+        service.updateKhoaByMaKhoa(khoa, makhoa);
+        return new ResponseEntity<>(new message("Update thành công!"), HttpStatus.OK);
     }
 
     @DeleteMapping("/{makhoa}")
     public ResponseEntity<?> deletedKhoaByMaKhoa(@PathVariable String makhoa) {
-        if (service.getKhoaByMaKhoa(makhoa) != null) {
-            service.deletedKhoa(makhoa);
-            return new ResponseEntity<>(new message("Xóa thành công!"), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(new message("Không tìm thấy khoa để xóa"), HttpStatus.NOT_FOUND);
-        }
+        service.deletedKhoa(makhoa);
+        return new ResponseEntity<>(new message("Xóa thành công!"), HttpStatus.OK);
     }
 
 }
