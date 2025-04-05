@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import CNTTK18.JobBE.DTO.Auth.LoginDTO;
 import CNTTK18.JobBE.Models.TokenResponse;
+import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.UsersRepo;
 
 @Service
@@ -27,7 +28,7 @@ public class AuthService {
     }
 
     public boolean logout(String email) {
-        var user = repo.findByEmail(email);
+        Users user = repo.findByEmail(email);
         if (user == null) {
             return false;
         }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import CNTTK18.JobBE.DTO.Api.UserDetailsDTO;
+import CNTTK18.JobBE.DTO.UserDTO;
 import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Services.AdminService;
 
@@ -29,31 +30,37 @@ public class AdminController {
         this.adminsService = adminsService;
     }
 
-    @GetMapping("getAllUser")
-    public ResponseEntity<List<UserDetailsDTO>> getAllUsers() {
-        List<UserDetailsDTO> userList = adminsService.getAllUsers();
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> userList = adminsService.getAllUsers();
         return ResponseEntity.ok(userList);
     }
 
-    @GetMapping("getUserById/{userId}")
-    public ResponseEntity<UserDetailsDTO> getUserById(@PathVariable("userId")String userId) {
-        UserDetailsDTO userDTO = adminsService.getUserById(userId);
+    @GetMapping("user/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("userId")String userId) {
+        UserDTO userDTO = adminsService.getUserById(userId);
         return ResponseEntity.ok(userDTO);
     }
 
-    @PostMapping("/createUser")
-    public ResponseEntity<UserDetailsDTO> createUser(@RequestBody Users userRequest, @RequestParam(value = "roleId") Integer roleId) {
-        UserDetailsDTO userDTO = adminsService.createUser(userRequest, roleId);
-        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
+    @PostMapping("/user/student")
+    public ResponseEntity<?> createStudent(@RequestBody UserDTO userRequest) {
+        adminsService.createStudent(userRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateUser/{userId}")
-    public ResponseEntity<UserDetailsDTO> updateUser(@PathVariable("userId") String userId, @RequestBody Users userRequest) {
-        UserDetailsDTO userDTO = adminsService.updateUser(userId, userRequest);
-        return ResponseEntity.ok(userDTO);
+    @PostMapping("/user/teacher")
+    public ResponseEntity<?> createTeacher(@RequestBody UserDTO userRequest) {
+        adminsService.createTeacher(userRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
+    // @PutMapping("/user/{userId}")
+    // public ResponseEntity<UserDTO> updateUser(@PathVariable("userId") String userId, @RequestBody UserDTO userRequest) {
+    //     UserDTO userDTO = adminsService.updateUser(userId, userRequest);
+    //     return ResponseEntity.ok(userDTO);
+    // }
+
+    @DeleteMapping("/user/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable("userId") String userId) {
         adminsService.deleteUser(userId);
         return ResponseEntity.ok("User with ID " + userId + " has been deleted successfully.");
