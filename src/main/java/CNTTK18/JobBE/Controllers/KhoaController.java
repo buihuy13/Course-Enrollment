@@ -68,9 +68,9 @@ public class KhoaController {
     public ResponseEntity<?> updateKhoa(@RequestBody Khoa khoa, @PathVariable String makhoa) {
         if (service.getKhoaByMaKhoa(makhoa) != null) {
             service.updateKhoaByMaKhoa(khoa, makhoa);
-            return new ResponseEntity<>("Update thành công!", HttpStatus.OK);
+            return new ResponseEntity<>(new message("Update thành công!"), HttpStatus.OK);
         }
-        return new ResponseEntity<>("Không tìm thấy khoa cần update!", HttpStatus.OK);
+        return new ResponseEntity<>(new message("Không tìm thấy khoa cần update!"), HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{makhoa}")
