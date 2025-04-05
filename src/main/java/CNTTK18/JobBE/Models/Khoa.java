@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,7 +35,7 @@ public class Khoa {
     @Column(name = "tenkhoa")
     private String tenKhoa;
 
-    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ChuyenNganh> chuyenNganhList;
 
     public List<ChuyenNganh> getChuyenNganhList() {
@@ -44,7 +45,7 @@ public class Khoa {
         return chuyenNganhList;
     }
 
-    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GiangVien> giangVienList;
 
     public List<GiangVien> getGiangVienList() {
@@ -54,7 +55,7 @@ public class Khoa {
         return giangVienList;
     }
 
-    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MonHoc> monHocList;
 
     public List<MonHoc> getMonHocList() {
