@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import CNTTK18.JobBE.DTO.StudentDTO;
-import CNTTK18.JobBE.DTO.TeacherDTO;
-import CNTTK18.JobBE.DTO.UserRequest;
+import CNTTK18.JobBE.DTO.Request.UserRequest;
+import CNTTK18.JobBE.DTO.User.StudentDTO;
+import CNTTK18.JobBE.DTO.User.TeacherDTO;
 import CNTTK18.JobBE.Models.Admin;
 import CNTTK18.JobBE.Models.ChuyenNganh;
 import CNTTK18.JobBE.Models.GiangVien;

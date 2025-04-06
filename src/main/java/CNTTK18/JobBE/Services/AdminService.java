@@ -7,9 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import CNTTK18.JobBE.DTO.StudentDTO;
-import CNTTK18.JobBE.DTO.TeacherDTO;
-import CNTTK18.JobBE.DTO.UserRequest;
+import CNTTK18.JobBE.DTO.Request.UserRequest;
+import CNTTK18.JobBE.DTO.User.StudentDTO;
+import CNTTK18.JobBE.DTO.User.TeacherDTO;
 import CNTTK18.JobBE.Exception.ResourceNotFoundException;
 import CNTTK18.JobBE.Models.ChuyenNganh;
 import CNTTK18.JobBE.Models.GiangVien;

@@ -1,4 +1,4 @@
-package CNTTK18.JobBE.DTO;
+package CNTTK18.JobBE.DTO.User;
 
 import java.sql.Date;
 

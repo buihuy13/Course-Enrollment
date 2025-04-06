@@ -1,6 +1,6 @@
-package CNTTK18.JobBE.DTO;
+package CNTTK18.JobBE.DTO.User;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
