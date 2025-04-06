@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import CNTTK18.JobBE.DTO.StudentDTO;
 import CNTTK18.JobBE.DTO.TeacherDTO;
-import CNTTK18.JobBE.DTO.UserDTO;
+import CNTTK18.JobBE.DTO.UserRequest;
 import CNTTK18.JobBE.Exception.ResourceNotFoundException;
 import CNTTK18.JobBE.Models.ChuyenNganh;
 import CNTTK18.JobBE.Models.GiangVien;
@@ -50,32 +50,32 @@ public class AdminService {
         this.usersRepo = usersRepo;
     }
 
-    public List<UserDTO> getAllUsers() {
+    public List<UserRequest> getAllUsers() {
         List<Users> userList = usersRepo.findAll();
 
         if(userList.isEmpty()) {
             throw new EntityNotFoundException("Not Found User!");
         }
 
-        List<UserDTO> userListDTO = Utils.mapUserListEntityToUserListDTO(userList);
+        List<UserRequest> userListDTO = Utils.mapUserListEntityToUserListDTO(userList);
 
         return userListDTO;
     }
 
-    public UserDTO getUserById(String userId) {
+    public UserRequest getUserById(String userId) {
         Users user = usersRepo.findUsersById(userId);
 
         if(user == null) {
             throw new EntityNotFoundException("Not Found User!" );
         }
 
-        UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
+        UserRequest userDTO = Utils.mapUserEntityToUserDTO(user);
 
         return userDTO;
     }
 
     @Transactional
-    public StudentDTO createStudent(UserDTO userRequest) {
+    public StudentDTO createStudent(UserRequest userRequest) {
         SinhVien student = new SinhVien();
 
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
@@ -95,12 +95,7 @@ public class AdminService {
         ChuyenNganh chuyenNganh = chuyenNganhRepo.findById(userRequest.getManganh()).orElseThrow(() -> new EntityNotFoundException("Not Found Chuyen Nganh"));
         student.setChuyenNganh(chuyenNganh);
 
-        // if (userRequest.getMapdk() != null) {
-        //     phieuDangKyRepo.findById(userRequest.getMapdk())
-        //             .ifPresent(student::setPhieuDangKy);
-        // }  else {
-        //     student.setPhieuDangKy(null);
-        // }
+        student.setPhieuDangKy(null);
 
         sinhVienRepo.save(student);
 
@@ -108,73 +103,73 @@ public class AdminService {
         return userDTO;
     }
 
-    public TeacherDTO createTeacher(UserDTO userRequest) {
-        TeacherDTO userDTO = new TeacherDTO();
-
-        Users user = new Users();
+    @Transactional
+    public TeacherDTO createTeacher(UserRequest userRequest) {
+        GiangVien teacher = new GiangVien();
 
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setId(UUID.randomUUID().toString().replace("-", "").substring(0, 30));
-        user.setEmail(userRequest.getEmail());
-        user.setHoten(userRequest.getName());
-        user.setNgaysinh(userRequest.getDateOfBirth());
-        user.setGioitinh(userRequest.getSex());
 
-        if(user instanceof GiangVien) {
-            GiangVien giangVien = (GiangVien) user;
-            giangVien.setMsgv(userRequest.getMs());
+        teacher.setId(UUID.randomUUID().toString().replace("-", "").substring(0, 30));
+        teacher.setEmail(userRequest.getEmail());
+        teacher.setHoten(userRequest.getName());
+        teacher.setNgaysinh(userRequest.getDateOfBirth());
+        teacher.setGioitinh(userRequest.getSex());
+        teacher.setPassword(userRequest.getPassword());
 
-            Khoa khoa = khoaRepo.findById(userRequest.getMakhoa()).orElseThrow(() -> new EntityNotFoundException("Not found Khoa with Id" + userRequest.getMakhoa()));
-            giangVien.setKhoa(khoa);
+        Roles role = roleRepo.findById(userRequest.getRole()).orElseThrow(() -> new EntityNotFoundException("Not Found role with RoleId" + userRequest.getRole()));
+        teacher.setRole(role);
 
-            giangVienRepo.save(giangVien);
-        }
+        teacher.setMsgv(userRequest.getMs());
 
-        usersRepo.save(user);
+        Khoa khoa = khoaRepo.findById(userRequest.getMakhoa()).orElseThrow(() -> new EntityNotFoundException("Not Found Khoa with id" + userRequest.getMakhoa()));
+        teacher.setKhoa(khoa);
 
+        giangVienRepo.save(teacher);
+
+        TeacherDTO userDTO = Utils.mapTeacherEntityToTeacherDTO(teacher);
         return userDTO;
     }
 
-    // public UserDTO updateUser(String userId, UserDTO userRequest) {
-    //     int roleId = userRequest.getRole();
-    //     userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+    @Transactional
+    public StudentDTO updateStudent(String userId, UserRequest userRequest) {
+        SinhVien updateSV = sinhVienRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("Not Found Student with Id " + userId));
 
-    //     Users user = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("Not Found User with Id: " + userId));
-    //     UserDTO userDTO = new UserDTO();
+        updateSV.setEmail(userRequest.getEmail());
+        updateSV.setNgaysinh(userRequest.getDateOfBirth());
+        updateSV.setHoten(userRequest.getName());
+        updateSV.setGioitinh(userRequest.getSex());
+        updateSV.setMssv(userRequest.getMs());
 
-    //     user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-    //     user.setEmail(userRequest.getEmail());
-    //     user.setGioitinh(userRequest.getSex());
-    //     user.setHoten(userRequest.getName());
-    //     user.setNgaysinh(userRequest.getDateOfBirth());
-        
-    //     if (roleId == 2 && user instanceof GiangVien) { // là Giảng Viên
-    //         GiangVien updateGV = (GiangVien) user;
-    //         updateGV.setMsgv(userRequest.getMs());
+        ChuyenNganh chuyenNganh = chuyenNganhRepo.findById(userRequest.getManganh()).orElseThrow(() -> new EntityNotFoundException("Not Found Chuyen Nganh"));
+        updateSV.setChuyenNganh(chuyenNganh);
 
-    //         Khoa khoa = khoaRepo.findById(userRequest.getMakhoa()).orElseThrow(() -> new EntityNotFoundException("Not Found"));
-    //         updateGV.setKhoa(khoa);
+        if(userRequest.getMapdk() != null) {
+            PhieuDangKy pdk = phieuDangKyRepo.findById(userRequest.getMapdk()).orElseThrow(() -> new EntityNotFoundException("Not Found PDK"));
+            updateSV.setPhieuDangKy(pdk);
+        }
 
-    //         giangVienRepo.save(updateGV);
-    //         userDTO = Utils.mapTeacherEntityToTeacherDTO(updateGV);
+        sinhVienRepo.save(updateSV);
+        StudentDTO studentDTO = Utils.mapStudentEntityToStudentDTO(updateSV);
+        return studentDTO;
+    }
 
-    //     } else if (roleId == 1 && user instanceof SinhVien) { // là Sinh Vien
-    //         SinhVien updateSV =(SinhVien) user;
-    //         updateSV.setMssv(userRequest.getMs());
+    @Transactional
+    public TeacherDTO updateTeacher(String userId, UserRequest userRequest) {
+        GiangVien updateGV = giangVienRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("Not Found Teacher with Id " + userId));
 
-    //         ChuyenNganh chuyenNganh = chuyenNganhRepo.findById(userRequest.getManganh()).orElseThrow(() -> new EntityNotFoundException("Not Found"));
-    //         updateSV.setChuyenNganh(chuyenNganh);
+        updateGV.setEmail(userRequest.getEmail());
+        updateGV.setNgaysinh(userRequest.getDateOfBirth());
+        updateGV.setHoten(userRequest.getName());
+        updateGV.setGioitinh(userRequest.getSex());
+        updateGV.setMsgv(userRequest.getMs());
 
-    //         PhieuDangKy pdk = phieuDangKyRepo.findById(userRequest.getMapdk()).orElseThrow(() -> new EntityNotFoundException("Not Found"));
-    //         updateSV.setPhieuDangKy(pdk);
+        Khoa khoa = khoaRepo.findById(userRequest.getMakhoa()).orElseThrow(() -> new EntityNotFoundException("Not Found"));
+        updateGV.setKhoa(khoa);
 
-    //         sinhVienRepo.save(updateSV);
-    //         userDTO = Utils.mapStudentEntityToStudentDTO(updateSV);
-    //     } 
-
-    //     usersRepo.save(user);
-    //     return userDTO;
-    // }
+        giangVienRepo.save(updateGV);
+        TeacherDTO teacherDTO = Utils.mapTeacherEntityToTeacherDTO(updateGV);
+        return teacherDTO;
+    }
 
     public void deleteUser(String userId) {
         Users user = usersRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Users", "id", userId));

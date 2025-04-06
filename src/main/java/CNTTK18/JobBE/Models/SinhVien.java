@@ -33,7 +33,7 @@ public class SinhVien extends Users {
     @JoinColumn(name = "manganh")
     private ChuyenNganh chuyenNganh;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "mapdk")
     private PhieuDangKy phieuDangKy;
 

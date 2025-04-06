@@ -8,14 +8,13 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StudentDTO {
+public class TeacherDTO {
     private String id;
     private String email;
     private String name;
     private Date dateOfBirth;
     private String sex;
-    private String role;
-    private String mssv;
-    private String manganh;
-    private String mapdk;
+    private int role;
+    private String msgv;
+    private String makhoa;
 }

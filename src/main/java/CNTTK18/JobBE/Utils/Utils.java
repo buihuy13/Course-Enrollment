@@ -2,14 +2,13 @@ package CNTTK18.JobBE.Utils;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import CNTTK18.JobBE.DTO.StudentDTO;
 import CNTTK18.JobBE.DTO.TeacherDTO;
-import CNTTK18.JobBE.DTO.UserDTO;
+import CNTTK18.JobBE.DTO.UserRequest;
 import CNTTK18.JobBE.Models.Admin;
 import CNTTK18.JobBE.Models.ChuyenNganh;
 import CNTTK18.JobBE.Models.GiangVien;
@@ -35,8 +34,8 @@ public class Utils {
         return sb.toString();
     }
 
-    public static UserDTO mapUserEntityToUserDTO(Users user) {
-        UserDTO userDTO = new UserDTO();
+    public static UserRequest mapUserEntityToUserDTO(Users user) {
+        UserRequest userDTO = new UserRequest();
         userDTO.setRole(user.getRole().getId());
 
         if (user.getRole().getId() == 1 && user instanceof SinhVien) {
@@ -76,7 +75,7 @@ public class Utils {
         studentDTO.setSex(sv.getGioitinh());
         studentDTO.setMssv(sv.getMssv());
         studentDTO.setManganh(sv.getChuyenNganh().getMaNganh());
-        studentDTO.setMapdk(sv.getPhieuDangKy().getMaPDK());
+        studentDTO.setRole(sv.getRole().getId());
         
         return studentDTO;
     }
@@ -91,6 +90,7 @@ public class Utils {
         teacherDTO.setSex(teacher.getGioitinh());
         teacherDTO.setMsgv(teacher.getMsgv());
         teacherDTO.setMakhoa(teacher.getKhoa().getMaKhoa());
+        teacherDTO.setRole(teacher.getRole().getId());
 
         return teacherDTO;
     }
@@ -108,7 +108,7 @@ public class Utils {
     // //     return studentDTO;
     // // }
 
-    public static SinhVien mapUserEntityToSinhVien(UserDTO user, ChuyenNganh nganh, PhieuDangKy pdk, Roles role) {
+    public static SinhVien mapUserEntityToSinhVien(UserRequest user, ChuyenNganh nganh, PhieuDangKy pdk, Roles role) {
         SinhVien newSV = new SinhVien();
 
         // newSV.setId(UUID.randomUUID().toString().replace("-", "").substring(0, 30));
@@ -126,7 +126,7 @@ public class Utils {
         return newSV;
     }
 
-    public static GiangVien mapUserEntityToGiangVien(UserDTO user, Khoa khoa, Roles role) {
+    public static GiangVien mapUserEntityToGiangVien(UserRequest user, Khoa khoa, Roles role) {
         GiangVien newGV = new GiangVien();
 
         // newGV.setId(UUID.randomUUID().toString().replace("-", "").substring(0, 30));
@@ -143,7 +143,7 @@ public class Utils {
         return newGV;
     }
 
-    public static List<UserDTO> mapUserListEntityToUserListDTO(List<Users> usersList) {
+    public static List<UserRequest> mapUserListEntityToUserListDTO(List<Users> usersList) {
         return usersList.stream()
                         .map(Utils::mapUserEntityToUserDTO)
                         .collect(Collectors.toList());
