@@ -20,8 +20,6 @@ import CNTTK18.JobBE.DTO.User.StudentDTO;
 import CNTTK18.JobBE.DTO.User.TeacherDTO;
 import CNTTK18.JobBE.Services.AdminService;
 
-
-
 @RestController
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")

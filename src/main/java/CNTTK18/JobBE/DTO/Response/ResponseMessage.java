@@ -1,4 +1,4 @@
-package CNTTK18.JobBE.DTO;
+package CNTTK18.JobBE.DTO.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
