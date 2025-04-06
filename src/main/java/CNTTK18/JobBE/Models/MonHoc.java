@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -42,10 +43,6 @@ public class MonHoc {
     @Column(name = "sotinchi")
     private int soTinChi;
 
-    @NotNull
-    @Column(name = "soluongsinhvientoida")
-    private int soLuongSinhVienToiDa;
-
     @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
     private List<DieuKienTienQuyet> dieuKienTienQuyet;
 
@@ -56,7 +53,7 @@ public class MonHoc {
         return dieuKienTienQuyet;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "makhoa")
     private Khoa khoa;
 }

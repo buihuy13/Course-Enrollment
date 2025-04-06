@@ -10,6 +10,7 @@ import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.GiangVienRepo;
 import CNTTK18.JobBE.Repositories.SinhVienRepo;
 import CNTTK18.JobBE.Repositories.UsersRepo;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ApiService {
@@ -32,12 +33,13 @@ public class ApiService {
 
     public UserDetailsDTO getUserByAccessToken(String accessToken) throws Exception {
         String email = jwtService.extractUserName(accessToken);
-        Users user = repo.findByEmail(email);
+        Users user = repo.findByEmail(email); 
         if (user == null) {
-            return null;
+            throw new EntityNotFoundException("User not found with email: " + email);
         }
 
         var response = new UserDetailsDTO();
+        response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setName(user.getHoten());
         response.setDateOfBirth(user.getNgaysinh());
@@ -47,11 +49,13 @@ public class ApiService {
         {
             SinhVien sinhVien = sinhVienRepo.findByEmail(user.getEmail());
             response.setMs(sinhVien.getMssv());
+            response.setTen(sinhVien.getChuyenNganh().getTenNganh());
         } 
         else if (user.getRole().getRoleName().equals(RoleName.giangvien)) 
         {
             GiangVien giangVien = giangVienRepo.findByEmail(user.getEmail());
             response.setMs(giangVien.getMsgv());
+            response.setTen(giangVien.getKhoa().getTenKhoa());
         }
         return response;
     }
