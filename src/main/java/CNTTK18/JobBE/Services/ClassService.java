@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -15,6 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import CNTTK18.JobBE.DTO.Class.ClassDTO;
+import CNTTK18.JobBE.DTO.Class.ClassDetailsDTO;
 import CNTTK18.JobBE.Models.GiangVien;
 import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Models.MonHoc;
@@ -35,12 +37,12 @@ public class ClassService {
         this.monHocRepo = monHocRepo;
     }
 
-    public List<LopHoc> getAllClasses() {
-        return classRepo.findAll();        
+    public List<ClassDetailsDTO> getAllClasses() {
+        return classRepo.findAllLopHoc();        
     }
 
-    public LopHoc getClassById(String id) {
-        LopHoc lophoc = classRepo.findLopHocByMaLH(id);
+    public ClassDetailsDTO getClassById(String id) {
+        var lophoc = classRepo.findLopHoc(id);
         if (lophoc == null) {
             throw new EntityNotFoundException("Class not found with id: " + id);
         }
@@ -48,6 +50,7 @@ public class ClassService {
         return lophoc;
     }
 
+    @Transactional
     public void updateClassById(String id, ClassDTO updatedClass) {
         LopHoc existingClass = classRepo.findLopHocByMaLH(id);
         if (existingClass == null) {
@@ -66,10 +69,16 @@ public class ClassService {
         existingClass.setGiangVien(giangVien);
         existingClass.setNgayBatDau(updatedClass.getNgayBatDau());
         existingClass.setNgayKetThuc(updatedClass.getNgayKetThuc());
+        existingClass.setMaLH(updatedClass.getMalh());
+        existingClass.setSoLuongSinhVien(updatedClass.getSoLuongSinhVien());
+        existingClass.setTietBatDau(updatedClass.getTietBatDau());
+        existingClass.setTietKetThuc(updatedClass.getTietKetThuc());
+        existingClass.setThu(updatedClass.getThu());
 
         classRepo.save(existingClass);
     }
 
+    @Transactional
     public void deleteClassById(String id) {
         LopHoc existingClass = classRepo.findLopHocByMaLH(id);
         if (existingClass == null) {
@@ -78,6 +87,7 @@ public class ClassService {
         classRepo.delete(existingClass);
     }
 
+    @Transactional
     public void processExcelFile(MultipartFile file) throws IOException {
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -105,10 +115,12 @@ public class ClassService {
                     lophoc.setMonHoc(monHoc);
                 }
                 
+                // MaLH
                 if (currentRow.getCell(2) != null) {
                     lophoc.setMaLH(currentRow.getCell(2).getStringCellValue());
                 }
                 
+                // MaGV
                 if (currentRow.getCell(4) != null) {
                     GiangVien giangVien = giangVienRepo.findGiangVienById(currentRow.getCell(4).getStringCellValue());
                     if (giangVien == null) {
@@ -117,24 +129,25 @@ public class ClassService {
                     lophoc.setGiangVien(giangVien);
                 }
 
+                // So luong sinh vien cho lop hoc
                 if (currentRow.getCell(6) != null) {
                     lophoc.setSoLuongSinhVien((int) currentRow.getCell(6).getNumericCellValue());
                 }
 
-                //Tong so tin chi cua lop do
-                // if (currentRow.getCell(7) != null) {
-                //     lophoc.set(currentRow.getCell(7).getStringCellValue());
-                // }
+                // tiet bat dau
+                if (currentRow.getCell(7) != null) {
+                    lophoc.setTietBatDau((int) currentRow.getCell(7).getNumericCellValue());
+                }
 
-                //hoc vao thu may
-                // if (currentRow.getCell(8) != null) {
-                //     lophoc.setNgayBatDau(currentRow.getCell(8).getDateCellValue());
-                // }
+                //tiet ket thuc
+                if (currentRow.getCell(8) != null) {
+                    lophoc.setTietKetThuc((int) currentRow.getCell(8).getNumericCellValue());
+                }
 
-                //so tiet hoc 
-                // if (currentRow.getCell(9) != null) {
-                //     lophoc.setNgayKetThuc(currentRow.getCell(9).getDateCellValue());
-                // }
+                // hoc vao thu may
+                if (currentRow.getCell(9) != null) {
+                    lophoc.setThu((int) currentRow.getCell(8).getNumericCellValue());
+                }
 
                 //hoc ky
                 if (currentRow.getCell(10) != null) {
@@ -142,9 +155,9 @@ public class ClassService {
                 }
 
                 //nam hoc
-                // if (currentRow.getCell(11) != null) {
-                //     lophoc.setNamHoc(currentRow.getCell(11).getStringCellValue());
-                // }
+                if (currentRow.getCell(11) != null) {
+                    lophoc.setNamHoc(currentRow.getCell(11).getStringCellValue());
+                }
                 
                 //ngay bat dau
                 if (currentRow.getCell(12) != null) {
