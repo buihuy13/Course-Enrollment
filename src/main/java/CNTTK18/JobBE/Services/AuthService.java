@@ -29,7 +29,7 @@ public class AuthService {
     }
 
     public boolean logout(String email) {
-        var user = repo.findByEmail(email);
+        Users user = repo.findByEmail(email);
         if (user == null) {
             return false;
         }
