@@ -85,7 +85,6 @@ public class Utils {
     public static TeacherDTO mapTeacherEntityToTeacherDTO(GiangVien teacher) {
         TeacherDTO teacherDTO = new TeacherDTO();
 
-        teacherDTO.setId(teacher.getId());
         teacherDTO.setEmail(teacher.getEmail());
         teacherDTO.setName(teacher.getHoten());
         teacherDTO.setDateOfBirth(teacher.getNgaysinh());

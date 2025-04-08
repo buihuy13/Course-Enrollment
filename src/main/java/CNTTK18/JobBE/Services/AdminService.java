@@ -173,6 +173,15 @@ public class AdminService {
 
     public void deleteUser(String userId) {
         Users user = usersRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Users", "id", userId));
+
+        if(user.getRole().getId() == 1) {
+            SinhVien sv = sinhVienRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("SinhVien", "id", userId));
+            sinhVienRepo.delete(sv);
+        } else if (user.getRole().getId() == 2) {
+            GiangVien gv = giangVienRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("GiangVien", "id", userId));
+            giangVienRepo.delete(gv);
+        }
+
         usersRepo.delete(user);
     }
 }
