@@ -2,6 +2,7 @@ package CNTTK18.JobBE.Controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/subjects")
+@PreAuthorize("hasRole('ADMIN')")
 public class SubjectController {
     private final SubjectService subjectService;
 
