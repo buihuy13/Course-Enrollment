@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ import CNTTK18.JobBE.Helper.ExcelHelper;
 import CNTTK18.JobBE.Services.ClassService;
 
 @RestController
+@RequestMapping("/classes")
 public class ClassController {
     private final ClassService classService;
 
@@ -29,31 +31,31 @@ public class ClassController {
 
     record MessageResponse(String message) {}
 
-    @GetMapping("classes")
+    @GetMapping("")
     public ResponseEntity<?> getAllClasses() {
         List<ClassDetailsDTO> classes = classService.getAllClasses();
         return ResponseEntity.ok(classes);
     }
 
-    @GetMapping("classes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getClassById(@PathVariable String id) {
         ClassDetailsDTO lophoc = classService.getClassById(id);
         return ResponseEntity.ok(lophoc);
     }
 
-    @PutMapping("classes/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateClassById(@PathVariable String id, @RequestBody ClassDTO updatedClass) {
         classService.updateClassById(id, updatedClass);
         return ResponseEntity.ok(new MessageResponse("Cập nhật lớp học thành công!"));
     }
 
-    @DeleteMapping("classes/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteClassById(@PathVariable String id) {
         classService.deleteClassById(id);
         return ResponseEntity.ok("ok");
     }
 
-    @PostMapping("/classes/upload")
+    @PostMapping("")
     public ResponseEntity<?> uploadClasses(@RequestParam("file") MultipartFile file) {
         try {
             if (ExcelHelper.hasExcelFormat(file)) {
