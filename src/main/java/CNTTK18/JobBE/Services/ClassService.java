@@ -130,27 +130,29 @@ public class ClassService {
 
                 // So luong sinh vien cho lop hoc
                 if (currentRow.getCell(6) != null) {
-                    lophoc.setSoLuongSinhVien((int) currentRow.getCell(6).getNumericCellValue());
+                    String a = currentRow.getCell(6).getStringCellValue();
+                    int soLuong = Integer.parseInt(a);
+                    lophoc.setSoLuongSinhVien(soLuong);
                 }
 
                 // tiet bat dau
                 if (currentRow.getCell(7) != null) {
-                    lophoc.setTietBatDau((int) currentRow.getCell(7).getNumericCellValue());
+                    lophoc.setTietBatDau(Integer.parseInt(currentRow.getCell(7).getStringCellValue()));
                 }
 
                 //tiet ket thuc
                 if (currentRow.getCell(8) != null) {
-                    lophoc.setTietKetThuc((int) currentRow.getCell(8).getNumericCellValue());
+                    lophoc.setTietKetThuc(Integer.parseInt(currentRow.getCell(8).getStringCellValue()));
                 }
 
                 // hoc vao thu may
                 if (currentRow.getCell(9) != null) {
-                    lophoc.setThu((int) currentRow.getCell(8).getNumericCellValue());
+                    lophoc.setThu(Integer.parseInt(currentRow.getCell(9).getStringCellValue()));
                 }
 
                 //hoc ky
                 if (currentRow.getCell(10) != null) {
-                    lophoc.setHocKi((int) currentRow.getCell(10).getNumericCellValue());
+                    lophoc.setHocKi(Integer.parseInt(currentRow.getCell(10).getStringCellValue()));
                 }
 
                 //nam hoc
