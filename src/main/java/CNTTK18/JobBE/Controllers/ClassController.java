@@ -67,7 +67,7 @@ public class ClassController {
             return ResponseEntity.badRequest().body(new MessageResponse("Upload file sai định dạng, không phải file excel!"));
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Upload file thất bại!"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse(e.getMessage()));
         }
     }
 }
