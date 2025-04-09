@@ -1,0 +1,1 @@
+ALTER TABLE dieukientienquyet MODIFY id INT AUTO_INCREMENT;
