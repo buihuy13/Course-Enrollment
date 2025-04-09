@@ -43,7 +43,7 @@ public class MonHoc {
     @Column(name = "sotinchi")
     private int soTinChi;
 
-    @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "monHoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DieuKienTienQuyet> dieuKienTienQuyet;
 
     public List<DieuKienTienQuyet> getDieuKienTienQuyet() {
