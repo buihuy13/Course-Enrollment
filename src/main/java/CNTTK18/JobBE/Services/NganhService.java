@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import CNTTK18.JobBE.DTO.Nganh.NganhDTO;
 import CNTTK18.JobBE.DTO.Nganh.NganhReturnDTO;
 import CNTTK18.JobBE.Exception.DuplicateEntityException;
 import CNTTK18.JobBE.Exception.ResourceNotFoundException;
@@ -60,13 +59,14 @@ public class NganhService {
         chuyenNganhRepo.save(chuyenNganh);
     }
 
-    public void updateNganh(String id, NganhDTO nganhReturnDTO) {
+    public void updateNganh(String id, NganhReturnDTO nganhReturnDTO) {
         ChuyenNganh chuyenNganh = chuyenNganhRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Cannot find major with id: " + id));
         Khoa khoa = khoaRepo.findByMaKhoa(nganhReturnDTO.getMaKhoa());
         if (khoa == null)
         {
             throw new ResourceNotFoundException("Khoa not found with maKhoa: " + nganhReturnDTO.getMaKhoa());
         }
+        chuyenNganh.setMaNganh(nganhReturnDTO.getMaNganh());
         chuyenNganh.setTenNganh(nganhReturnDTO.getTenNganh());
         chuyenNganh.setKhoa(khoa);
         chuyenNganhRepo.save(chuyenNganh);
