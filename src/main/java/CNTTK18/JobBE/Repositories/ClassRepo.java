@@ -15,14 +15,14 @@ public interface ClassRepo extends JpaRepository<LopHoc, String> {
 
     @Query("SELECT new CNTTK18.JobBE.DTO.Class.ClassDetailsDTO(l.maLH, l.hocKi, l.namHoc, " +
            "l.tietBatDau, l.tietKetThuc, l.thu, " +
-           "gv.maGV, gv.tenGV, mh.maMH, mh.tenMH, " +
+           "gv.msgv, gv.hoten, mh.maMH, mh.tenMH, " +
            "l.ngayBatDau, l.ngayKetThuc, l.soLuongSinhVien) " +
            "FROM LopHoc l JOIN l.giangVien gv JOIN l.monHoc mh")
     List<ClassDetailsDTO> findAllLopHoc();
 
     @Query("SELECT new CNTTK18.JobBE.DTO.Class.ClassDetailsDTO(l.maLH, l.hocKi, l.namHoc, " +
     "l.tietBatDau, l.tietKetThuc, l.thu, " +
-    "gv.maGV, gv.tenGV, mh.maMH, mh.tenMH, " +
+    "gv.msgv, gv.hoten, mh.maMH, mh.tenMH, " +
     "l.ngayBatDau, l.ngayKetThuc, l.soLuongSinhVien) " +
     "FROM LopHoc l JOIN l.giangVien gv JOIN l.monHoc mh " +
     "WHERE l.maLH = :id")

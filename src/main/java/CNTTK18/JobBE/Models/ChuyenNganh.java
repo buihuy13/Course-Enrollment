@@ -36,7 +36,7 @@ public class ChuyenNganh {
     @Column(name = "tennganh")
     private String tenNganh;
 
-    @OneToMany(mappedBy = "chuyenNganh", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chuyenNganh", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SinhVien> sinhVienList;
 
     public List<SinhVien> getSinhVienList() {
