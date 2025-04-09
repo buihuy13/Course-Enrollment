@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,14 +41,14 @@ public class SubjectController {
     }
 
     @PostMapping("")
-    public ResponseEntity<MessageResponse> createSubject(@Valid CreateSubjectDTO newSubject) {
+    public ResponseEntity<MessageResponse> createSubject(@Valid @RequestBody CreateSubjectDTO newSubject) {
         subjectService.createSubject(newSubject);
 
         return new ResponseEntity<>(new MessageResponse("Subject created successfully"), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateSubject(@PathVariable String id, @Valid CreateSubjectDTO newSubject) {
+    public ResponseEntity<MessageResponse> updateSubject(@PathVariable String id, @Valid @RequestBody CreateSubjectDTO newSubject) {
         subjectService.updateSubject(id, newSubject);
 
         return new ResponseEntity<>(new MessageResponse("Subject updated successfully"), HttpStatus.OK);
