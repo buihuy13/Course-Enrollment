@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 "Vi phạm ràng buộc trong sql (duplicate value, foreign key,...)",
                 ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
             "SQL_INTEGRITY_CONSTRAINT_VIOLATION", 
             ex.getMessage()
         );
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     // Xử lý exception chung
