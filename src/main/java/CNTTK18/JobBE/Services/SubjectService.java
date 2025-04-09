@@ -125,6 +125,7 @@ public class SubjectService {
                 dieuKienTienQuyetRepo.delete(dk);
             }
             subject.getDieuKienTienQuyet().clear();
+            dieuKienTienQuyetRepo.flush(); // đảm bảo nó được xóa luôn để tránh vi phạm ràng buộc unique
         }
 
         subjectRepo.save(subject);
