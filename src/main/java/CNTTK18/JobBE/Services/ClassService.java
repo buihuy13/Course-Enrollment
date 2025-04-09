@@ -82,7 +82,7 @@ public class ClassService {
     public void deleteClassById(String id) {
         LopHoc existingClass = classRepo.findLopHocByMaLH(id);
         if (existingClass == null) {
-            throw new EntityNotFoundException("Class not found with id: " + id);
+            throw new EntityNotFoundException("Class not found with maLH: " + id);
         }
         classRepo.delete(existingClass);
     }

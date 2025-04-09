@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import CNTTK18.JobBE.DTO.Class.ClassDTO;
 import CNTTK18.JobBE.DTO.Class.ClassDetailsDTO;
 import CNTTK18.JobBE.Helper.ExcelHelper;
-import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Services.ClassService;
 
 @RestController
@@ -49,7 +48,7 @@ public class ClassController {
     }
 
     @DeleteMapping("classes/{id}")
-    public ResponseEntity<?> deleteClassById(String id) {
+    public ResponseEntity<?> deleteClassById(@PathVariable String id) {
         classService.deleteClassById(id);
         return ResponseEntity.ok("ok");
     }
