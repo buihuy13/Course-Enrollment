@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import CNTTK18.JobBE.DTO.Class.ClassDTO;
+import CNTTK18.JobBE.DTO.Class.ClassDetailsDTO;
 import CNTTK18.JobBE.Helper.ExcelHelper;
-import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Services.ClassService;
 
 @RestController
@@ -31,13 +31,13 @@ public class ClassController {
 
     @GetMapping("classes")
     public ResponseEntity<?> getAllClasses() {
-        List<LopHoc> classes = classService.getAllClasses();
+        List<ClassDetailsDTO> classes = classService.getAllClasses();
         return ResponseEntity.ok(classes);
     }
 
     @GetMapping("classes/{id}")
     public ResponseEntity<?> getClassById(@PathVariable String id) {
-        LopHoc lophoc = classService.getClassById(id);
+        ClassDetailsDTO lophoc = classService.getClassById(id);
         return ResponseEntity.ok(lophoc);
     }
 
@@ -48,7 +48,7 @@ public class ClassController {
     }
 
     @DeleteMapping("classes/{id}")
-    public ResponseEntity<?> deleteClassById(String id) {
+    public ResponseEntity<?> deleteClassById(@PathVariable String id) {
         classService.deleteClassById(id);
         return ResponseEntity.ok("ok");
     }

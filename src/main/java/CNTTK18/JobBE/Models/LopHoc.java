@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -51,6 +53,19 @@ public class LopHoc {
     @NotNull
     @Column(name = "soluongsinhvien")
     private int soLuongSinhVien;
+
+    @NotNull
+    @Column(name = "tietbatdau")
+    private int tietBatDau;
+
+    @NotNull
+    @Column(name = "tietketthuc")
+    private int tietKetThuc;
+
+    @Column(name = "thu")
+    @Min(2)
+    @Max(7)
+    private int thu;
 
     @ManyToOne
     @JoinColumn(name = "mamh")
