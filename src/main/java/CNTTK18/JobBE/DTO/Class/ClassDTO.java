@@ -29,10 +29,6 @@ public class ClassDTO {
     @NotBlank
     private String magv;
 
-    @NotBlank
-    @Size(max = 30)
-    private String malh;
-
     @NotNull
     private int tietBatDau;
 

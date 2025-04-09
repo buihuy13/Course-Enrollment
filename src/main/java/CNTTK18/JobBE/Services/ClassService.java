@@ -69,7 +69,6 @@ public class ClassService {
         existingClass.setGiangVien(giangVien);
         existingClass.setNgayBatDau(updatedClass.getNgayBatDau());
         existingClass.setNgayKetThuc(updatedClass.getNgayKetThuc());
-        existingClass.setMaLH(updatedClass.getMalh());
         existingClass.setSoLuongSinhVien(updatedClass.getSoLuongSinhVien());
         existingClass.setTietBatDau(updatedClass.getTietBatDau());
         existingClass.setTietKetThuc(updatedClass.getTietKetThuc());

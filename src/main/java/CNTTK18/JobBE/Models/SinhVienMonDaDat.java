@@ -26,7 +26,8 @@ public class SinhVienMonDaDat {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "MSSV")
+
+    @JoinColumn(name = "mssv")
     private SinhVien sinhVien;
 
     @ManyToOne
