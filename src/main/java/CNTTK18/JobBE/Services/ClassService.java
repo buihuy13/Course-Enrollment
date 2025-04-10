@@ -56,9 +56,9 @@ public class ClassService {
         if (existingClass == null) {
             throw new EntityNotFoundException("Class not found with id: " + id);
         }
-        GiangVien giangVien = giangVienRepo.findGiangVienById(updatedClass.getMagv());
+        GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(updatedClass.getMagv());
         if (giangVien == null) {
-            throw new EntityNotFoundException("GiangVien not found with id: " + updatedClass.getMagv());
+            throw new EntityNotFoundException("GiangVien not found with msgv: " + updatedClass.getMagv());
         }
         MonHoc monHoc = monHocRepo.findMonHocByMaMH(updatedClass.getMamh());
         if (monHoc == null) {
@@ -91,6 +91,9 @@ public class ClassService {
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0);
             
+            classRepo.deleteAll();
+            classRepo.flush();
+
             // Bỏ qua dòng header
             Iterator<Row> rows = sheet.iterator();
             if (rows.hasNext()) {
@@ -121,9 +124,9 @@ public class ClassService {
                 
                 // MaGV
                 if (currentRow.getCell(4) != null) {
-                    GiangVien giangVien = giangVienRepo.findGiangVienById(currentRow.getCell(4).getStringCellValue());
+                    GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(currentRow.getCell(4).getStringCellValue());
                     if (giangVien == null) {
-                        throw new EntityNotFoundException("GiangVien not found with id: " + currentRow.getCell(4).getStringCellValue());
+                        throw new EntityNotFoundException("GiangVien not found with msgv: " + currentRow.getCell(4).getStringCellValue());
                     }
                     lophoc.setGiangVien(giangVien);
                 }
