@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -130,44 +130,55 @@ public class ClassService {
 
                 // So luong sinh vien cho lop hoc
                 if (currentRow.getCell(6) != null) {
-                    String a = currentRow.getCell(6).getStringCellValue();
-                    int soLuong = Integer.parseInt(a);
-                    lophoc.setSoLuongSinhVien(soLuong);
+                    DataFormatter dataFormatter = new DataFormatter();
+                    String a = dataFormatter.formatCellValue(currentRow.getCell(6));
+                    lophoc.setSoLuongSinhVien(Integer.parseInt(a));
                 }
 
                 // tiet bat dau
                 if (currentRow.getCell(7) != null) {
-                    lophoc.setTietBatDau(Integer.parseInt(currentRow.getCell(7).getStringCellValue()));
+                    DataFormatter dataFormatter = new DataFormatter();
+                    String a = dataFormatter.formatCellValue(currentRow.getCell(7));
+                    lophoc.setTietBatDau(Integer.parseInt(a));
                 }
 
                 //tiet ket thuc
                 if (currentRow.getCell(8) != null) {
-                    lophoc.setTietKetThuc(Integer.parseInt(currentRow.getCell(8).getStringCellValue()));
+                    DataFormatter dataFormatter = new DataFormatter();
+                    String a = dataFormatter.formatCellValue(currentRow.getCell(8));
+                    lophoc.setTietKetThuc(Integer.parseInt(a));
                 }
 
                 // hoc vao thu may
                 if (currentRow.getCell(9) != null) {
-                    lophoc.setThu(Integer.parseInt(currentRow.getCell(9).getStringCellValue()));
+                    DataFormatter dataFormatter = new DataFormatter();
+                    String a = dataFormatter.formatCellValue(currentRow.getCell(9));
+                    lophoc.setThu(Integer.parseInt(a));
                 }
 
                 //hoc ky
                 if (currentRow.getCell(10) != null) {
-                    lophoc.setHocKi(Integer.parseInt(currentRow.getCell(10).getStringCellValue()));
+                    DataFormatter dataFormatter = new DataFormatter();
+                    String a = dataFormatter.formatCellValue(currentRow.getCell(10));
+                    lophoc.setHocKi(Integer.parseInt(a));
                 }
 
                 //nam hoc
                 if (currentRow.getCell(11) != null) {
+                    System.out.println(currentRow.getCell(11).getCellType());
                     lophoc.setNamHoc(currentRow.getCell(11).getStringCellValue());
                 }
                 
                 //ngay bat dau
                 if (currentRow.getCell(12) != null) {
-                    lophoc.setNgayBatDau((Date) currentRow.getCell(12).getDateCellValue());
+                    Date date = Date.valueOf(currentRow.getCell(12).getStringCellValue());
+                    lophoc.setNgayBatDau(date);
                 }
 
                 //ngay ket thuc
                 if (currentRow.getCell(13) != null) {
-                    lophoc.setNgayKetThuc((Date) currentRow.getCell(13).getDateCellValue());
+                    Date date = Date.valueOf(currentRow.getCell(13).getStringCellValue());
+                    lophoc.setNgayKetThuc(date);
                 }
 
                 classes.add(lophoc);
