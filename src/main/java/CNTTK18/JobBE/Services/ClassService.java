@@ -124,7 +124,8 @@ public class ClassService {
                 
                 // MaGV
                 if (currentRow.getCell(4) != null) {
-                    GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(currentRow.getCell(4).getStringCellValue());
+                    DataFormatter dataFormatter = new DataFormatter();
+                    GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(dataFormatter.formatCellValue(currentRow.getCell(4)));
                     if (giangVien == null) {
                         throw new EntityNotFoundException("GiangVien not found with msgv: " + currentRow.getCell(4).getStringCellValue());
                     }
