@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import CNTTK18.JobBE.DTO.MonHoc.CreateSubjectDTO;
+import CNTTK18.JobBE.DTO.MonHoc.SubjectDTO;
 import CNTTK18.JobBE.Exception.DuplicateEntityException;
 import CNTTK18.JobBE.Models.DieuKienTienQuyet;
 import CNTTK18.JobBE.Models.Khoa;
@@ -94,14 +95,8 @@ public class SubjectService {
     }
 
     @Transactional
-    public void updateSubject(String id, CreateSubjectDTO dto)
+    public void updateSubject(String id, SubjectDTO dto)
     {
-        if (!id.equals(dto.getMaMH())) {
-            MonHoc existingSubject = subjectRepo.findMonHocByMaMH(dto.getMaMH());
-            if (existingSubject != null) {
-                throw new DuplicateEntityException("Subject already exists with id: " + dto.getMaMH());
-            } 
-        }
         MonHoc subject = subjectRepo.findMonHocByMaMH(id);
         if (subject == null) {
             throw new EntityNotFoundException("Subject not found with id: " + id);
@@ -112,7 +107,6 @@ public class SubjectService {
             throw new EntityNotFoundException("Khoa not found with id: " + dto.getMaKhoa());
         }
 
-        subject.setMaMH(dto.getMaMH());
         subject.setTenMH(dto.getTenMH());
         subject.setSoTinChi(dto.getSoTinChi());
         subject.setKhoa(khoa);
@@ -125,7 +119,7 @@ public class SubjectService {
                 dieuKienTienQuyetRepo.delete(dk);
             }
             subject.getDieuKienTienQuyet().clear();
-            dieuKienTienQuyetRepo.flush(); // đảm bảo nó được xóa luôn để tránh vi phạm ràng buộc unique
+            dieuKienTienQuyetRepo.flush(); // đảm bảo nó được xóa luôn để tránh vi phạm ràng buộc unique //chưa chắc
         }
 
         subjectRepo.save(subject);
