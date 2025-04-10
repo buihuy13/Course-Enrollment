@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import CNTTK18.JobBE.DTO.Nganh.NganhDTO;
 import CNTTK18.JobBE.DTO.Nganh.NganhReturnDTO;
 import CNTTK18.JobBE.DTO.Response.ResponseMessage;
 import CNTTK18.JobBE.Services.NganhService;
@@ -43,7 +45,7 @@ public class NganhController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateNganh(@RequestBody @Valid NganhReturnDTO nganhReturnDTO, @PathVariable String id) {
+    public ResponseEntity<?> updateNganh(@RequestBody @Valid NganhDTO nganhReturnDTO, @PathVariable String id) {
         nganhService.updateNganh(id, nganhReturnDTO);
         return ResponseEntity.ok(new ResponseMessage("Update Nganh successfully!"));
     }
