@@ -62,6 +62,7 @@ public class LopHoc {
     @Column(name = "tietketthuc")
     private int tietKetThuc;
 
+    @NotNull
     @Column(name = "thu")
     @Min(2)
     @Max(7)
