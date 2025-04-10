@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -124,11 +125,22 @@ public class ClassService {
                 
                 // MaGV
                 if (currentRow.getCell(4) != null) {
-                    DataFormatter dataFormatter = new DataFormatter();
-                    GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(dataFormatter.formatCellValue(currentRow.getCell(4)));
-                    if (giangVien == null) {
-                        throw new EntityNotFoundException("GiangVien not found with msgv: " + currentRow.getCell(4).getStringCellValue());
+                    String a = "";
+                    if (currentRow.getCell(4).getCellType() == CellType.NUMERIC)
+                    {
+                        System.out.println("Numeric");
+                        a = String.valueOf((long)(currentRow.getCell(4).getNumericCellValue()));
                     }
+                    else 
+                    {
+                        System.out.println("String");
+                        a = currentRow.getCell(4).getStringCellValue();
+                    }
+                    GiangVien giangVien = giangVienRepo.findGiangVienByMsgv(a);
+                    if (giangVien == null) {
+                        throw new EntityNotFoundException("GiangVien not found with msgv: " + a);
+                    }
+                    System.out.println("Tim thay giangvien");
                     lophoc.setGiangVien(giangVien);
                 }
 
@@ -169,7 +181,6 @@ public class ClassService {
 
                 //nam hoc
                 if (currentRow.getCell(11) != null) {
-                    System.out.println(currentRow.getCell(11).getCellType());
                     lophoc.setNamHoc(currentRow.getCell(11).getStringCellValue());
                 }
                 
