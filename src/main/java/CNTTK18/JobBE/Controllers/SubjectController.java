@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CNTTK18.JobBE.DTO.MonHoc.CreateSubjectDTO;
+import CNTTK18.JobBE.DTO.MonHoc.SubjectDTO;
 import CNTTK18.JobBE.Services.SubjectService;
 import jakarta.validation.Valid;
 
@@ -48,7 +49,7 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateSubject(@PathVariable String id, @Valid @RequestBody CreateSubjectDTO newSubject) {
+    public ResponseEntity<MessageResponse> updateSubject(@PathVariable String id, @Valid @RequestBody SubjectDTO newSubject) {
         subjectService.updateSubject(id, newSubject);
 
         return new ResponseEntity<>(new MessageResponse("Subject updated successfully"), HttpStatus.OK);
