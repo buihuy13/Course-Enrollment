@@ -47,16 +47,16 @@ CREATE TABLE sinhvien(
 	Id VARCHAR(30) PRIMARY KEY,
     FOREIGN KEY (Id) REFERENCES users(Id),
     MaNganh VARCHAR(30) not null,
-    FOREIGN KEY (MaNganh) REFERENCES chuyennganh(MaNganh),
+    FOREIGN KEY (MaNganh) REFERENCES chuyennganh(MaNganh)
 );
 
 CREATE TABLE PHIEUDANGKY(
 	MaPDK VARCHAR(30) PRIMARY KEY,
     HocKi INT not null,
     NamHoc VARCHAR(30) not null,
-    TongTinChi INT not null
+    TongTinChi INT not null,
     MSSV VARCHAR(30) not null,
-    foreign key (MSSV) references sinhvien(Id),
+    foreign key (MSSV) references sinhvien(Id)
 );
 
 CREATE TABLE monhoc(
@@ -82,7 +82,7 @@ CREATE TABLE LOPHOC(
     foreign key (MaMH) references monhoc(MaMH),
     TietBatDau INT not null,
     TietKetThuc INT not null,
-    Thu INT not null,
+    Thu INT not null
 );
 
 CREATE TABLE mondadat(
