@@ -55,8 +55,8 @@ CREATE TABLE PHIEUDANGKY(
     HocKi INT not null,
     NamHoc VARCHAR(30) not null,
     TongTinChi INT not null
-    MaSV VARCHAR(30) not null,
-    foreign key (MaSV) references sinhvien(Id),
+    MSSV VARCHAR(30) not null,
+    foreign key (MSSV) references sinhvien(Id),
 );
 
 CREATE TABLE monhoc(
