@@ -33,10 +33,6 @@ public class SinhVien extends Users {
     @JoinColumn(name = "manganh")
     private ChuyenNganh chuyenNganh;
 
-    @OneToOne
-    @JoinColumn(name = "mapdk")
-    private PhieuDangKy phieuDangKy;
-
     @OneToMany(mappedBy = "sinhVien", cascade = CascadeType.ALL)
     private List<SinhVienMonDaDat> sinhVienMonDaDatList;
 

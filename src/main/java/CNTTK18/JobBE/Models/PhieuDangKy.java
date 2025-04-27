@@ -6,7 +6,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,4 +52,8 @@ public class PhieuDangKy {
         }
         return phieuDangKyLopHocList;
     }
+
+    @OneToOne
+    @JoinColumn(name = "mssv")
+    private SinhVien sinhVien;
 }

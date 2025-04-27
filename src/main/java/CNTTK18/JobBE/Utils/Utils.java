@@ -40,13 +40,6 @@ public class Utils {
 
         if (user.getRole().getId() == 1 && user instanceof SinhVien) {
             SinhVien sv = (SinhVien) user;
-            
-            // userDTO.setMapdk(sv.getPhieuDangKy().getMaPDK());
-            if (sv.getPhieuDangKy() != null) {
-                userDTO.setMapdk(sv.getPhieuDangKy().getMaPDK());
-            } else {
-                userDTO.setMapdk(null); 
-            }
 
             userDTO.setMs(sv.getMssv());
             userDTO.setManganh(sv.getChuyenNganh().getMaNganh());
@@ -109,7 +102,7 @@ public class Utils {
     // //     return studentDTO;
     // // }
 
-    public static SinhVien mapUserEntityToSinhVien(UserRequest user, ChuyenNganh nganh, PhieuDangKy pdk, Roles role) {
+    public static SinhVien mapUserEntityToSinhVien(UserRequest user, ChuyenNganh nganh, Roles role) {
         SinhVien newSV = new SinhVien();
 
         // newSV.setId(UUID.randomUUID().toString().replace("-", "").substring(0, 30));
@@ -122,7 +115,6 @@ public class Utils {
         newSV.setNgaysinh(user.getDateOfBirth());
         newSV.setGioitinh(user.getSex());
         newSV.setChuyenNganh(nganh);
-        newSV.setPhieuDangKy(pdk);
 
         return newSV;
     }
