@@ -27,13 +27,6 @@ CREATE TABLE admin(
     FOREIGN KEY (Id) REFERENCES users(Id)
 );
 
-CREATE TABLE PHIEUDANGKY(
-	MaPDK VARCHAR(30) PRIMARY KEY,
-    HocKi INT not null,
-    NamHoc VARCHAR(30) not null,
-    TongTinChi INT not null
-);
-
 CREATE TABLE giangvien(
 	MSGV VARCHAR(30) not null unique,
 	Id VARCHAR(30) PRIMARY KEY,
@@ -55,8 +48,15 @@ CREATE TABLE sinhvien(
     FOREIGN KEY (Id) REFERENCES users(Id),
     MaNganh VARCHAR(30) not null,
     FOREIGN KEY (MaNganh) REFERENCES chuyennganh(MaNganh),
-    MaPDK varchar(30),
-    foreign key (MaPDK) references phieudangky(MaPDK)
+);
+
+CREATE TABLE PHIEUDANGKY(
+	MaPDK VARCHAR(30) PRIMARY KEY,
+    HocKi INT not null,
+    NamHoc VARCHAR(30) not null,
+    TongTinChi INT not null
+    MaSV VARCHAR(30) not null,
+    foreign key (MaSV) references sinhvien(Id),
 );
 
 CREATE TABLE monhoc(
@@ -79,7 +79,10 @@ CREATE TABLE LOPHOC(
     MaGV VARCHAR(30) not null,
     foreign key (MaGV) references giangvien(Id),
     MaMH VARCHAR(30) not null,
-    foreign key (MaMH) references monhoc(MaMH)
+    foreign key (MaMH) references monhoc(MaMH),
+    TietBatDau INT not null,
+    TietKetThuc INT not null,
+    Thu INT not null,
 );
 
 CREATE TABLE mondadat(
@@ -105,7 +108,7 @@ CREATE TABLE sinhvienmondadat(
 );
 
 CREATE TABLE dieukientienquyet(
-	Id int primary key,
+	Id int AUTO_INCREMENT primary key,
 	MaTQ VARCHAR(30),
     MaMH VARCHAR(30),
     foreign key (MaTQ) references montienquyet(MaMH),
