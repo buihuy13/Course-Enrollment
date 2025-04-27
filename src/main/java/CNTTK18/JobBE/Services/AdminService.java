@@ -95,8 +95,6 @@ public class AdminService {
         ChuyenNganh chuyenNganh = chuyenNganhRepo.findById(userRequest.getManganh()).orElseThrow(() -> new EntityNotFoundException("Not Found Chuyen Nganh"));
         student.setChuyenNganh(chuyenNganh);
 
-        student.setPhieuDangKy(null);
-
         sinhVienRepo.save(student);
 
         StudentDTO userDTO = Utils.mapStudentEntityToStudentDTO(student);
@@ -145,7 +143,6 @@ public class AdminService {
 
         if(userRequest.getMapdk() != null) {
             PhieuDangKy pdk = phieuDangKyRepo.findById(userRequest.getMapdk()).orElseThrow(() -> new EntityNotFoundException("Not Found PDK"));
-            updateSV.setPhieuDangKy(pdk);
         }
 
         sinhVienRepo.save(updateSV);
