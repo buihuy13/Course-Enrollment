@@ -76,6 +76,7 @@ CREATE TABLE LOPHOC(
     HocKi INT not null,
     NamHoc VARCHAR(30) not null,
     SoLuongSinhVien INT not null,
+    SoLuongSinhVienToiDa INT not null,
     MaGV VARCHAR(30) not null,
     foreign key (MaGV) references giangvien(Id),
     MaMH VARCHAR(30) not null,
