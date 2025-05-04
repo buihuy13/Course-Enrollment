@@ -1,8 +1,6 @@
-create database if not exists dkhp;
-use dkhp;
 
 CREATE TABLE roles(
-	Id INT PRIMARY KEY,
+	Id INT AUTO_INCREMENT PRIMARY KEY,
     RoleName VARCHAR(50) not null unique
 );
 
@@ -100,7 +98,7 @@ CREATE TABLE montienquyet(
 
 -- MSSV là id của sinhvien, không phải là mssv trong bảng SinhVien
 CREATE TABLE sinhvienmondadat(
-	Id int primary key,
+	Id int AUTO_INCREMENT primary key,
 	MSSV VARCHAR(30) not null,
     MaMH VARCHAR(30) not null,
     FOREIGN KEY (MSSV) REFERENCES sinhvien(Id),
@@ -118,7 +116,7 @@ CREATE TABLE dieukientienquyet(
 );
 
 CREATE TABLE phieudangkylophoc(
-	Id int primary key,
+	Id int AUTO_INCREMENT primary key,
 	MaPDK VARCHAR(30) not null,
     MaLH VARCHAR(30) not null,
     foreign key (MaPDK) references phieudangky(MaPDK),
