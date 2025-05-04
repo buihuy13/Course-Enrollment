@@ -63,7 +63,7 @@ BEGIN
  
  -- Tăng số lượng sinhvien của lớp học đó sau khi đăng ký thành công
  UPDATE lophoc AS lh
- SET SoLuongSinhVien = SoLuongSinhVien + 1
+ SET lh.SoLuongSinhVien = lh.SoLuongSinhVien + 1
  WHERE lh.MaLH = NEW.MaLH;
  
   -- Tăng số tín chỉ của phiếu đăng ký sau khi đăng ký
