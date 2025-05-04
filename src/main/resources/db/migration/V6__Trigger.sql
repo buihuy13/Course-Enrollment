@@ -100,10 +100,16 @@ BEGIN
  FROM lophoc lh 
  WHERE lh.MaLH = OLD.MaLH;
  
+ -- Trừ tín chỉ của pdk
  UPDATE phieudangky AS pdk
  SET TongTinChi = TongTinChi - (SELECT SoTinChi FROM monhoc AS mh 
 								WHERE mh.MaMH = mamh_lophoc)
  WHERE pdk.MaPDK = OLD.MaPDK;
+
+ -- Trừ số lượng sinh viên của lớp học
+ UPDATE lophoc AS lh
+ SET lh.SoLuongSinhVien = lh.SoLuongSinhVien - 1
+ WHERE lh.MaLH = OLD.MaLH;
  
 END; //
 DELIMITER ;
