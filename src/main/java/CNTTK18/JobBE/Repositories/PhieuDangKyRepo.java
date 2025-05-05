@@ -7,5 +7,5 @@ import CNTTK18.JobBE.Models.PhieuDangKy;
 
 @Repository
 public interface PhieuDangKyRepo extends JpaRepository<PhieuDangKy, String> {
-
+    PhieuDangKy findByMaPDK(String maPDK);
 }
