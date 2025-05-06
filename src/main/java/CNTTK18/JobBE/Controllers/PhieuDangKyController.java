@@ -60,12 +60,12 @@ public class PhieuDangKyController {
     @PostMapping("/{maPDK}/add-class/{maLH}")
     public ResponseEntity<ResponseMessage> addClassToRegistration(@PathVariable("maPDK") String maPDK, @PathVariable("maLH") String maLH) {
         phieuDangKyService.addClassToRegistration(maPDK, maLH);
-        return ResponseEntity.ok(new ResponseMessage("Đã thêm lớp học"));
+        return ResponseEntity.ok(new ResponseMessage("Đã thêm lớp học với maLH " + maLH + " vào PDK với maPDK " + maPDK));
     }
 
     @DeleteMapping("{maPDK}/remove-class/{maLH}")
     public ResponseEntity<ResponseMessage> removeClassFromRegistration(@PathVariable("maPDK") String maPDK, @PathVariable("maLH") String maLH) {
         phieuDangKyService.removeClassFromRegistration(maPDK, maLH);
-        return ResponseEntity.ok(new ResponseMessage("Đã xóa lớp học"));
+        return ResponseEntity.ok(new ResponseMessage("Đã xóa lớp học với maLH \" + maLH + \" vào PDK với maPDK \" + maPDK"));
     }
 }
