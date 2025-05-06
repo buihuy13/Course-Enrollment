@@ -62,7 +62,6 @@ CREATE TABLE monhoc(
     TenMH VARCHAR(100) not null unique,
     SoTinChi INT not null,
     MaKhoa VARCHAR(30) not null,
-    SoLuongSinhVienToiDa int not null,
     foreign key (MaKhoa) references khoa(MaKhoa)
 );
 
