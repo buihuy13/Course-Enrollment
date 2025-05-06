@@ -1,14 +1,10 @@
 package CNTTK18.JobBE.Services;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import CNTTK18.JobBE.DTO.PhieuDangKy.PDKCreateDTO;
+import CNTTK18.JobBE.DTO.PhieuDangKy.PDKUpdateDTO;
 import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyDTO;
 import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Models.PhieuDangKy;
@@ -65,34 +61,29 @@ public class PhieuDangKyService {
         return pdkDTO;
     }
 
-    public PhieuDangKyDTO createPDK(PhieuDangKy pdk) {
-        if (pdk.getSinhVien() == null || pdk.getSinhVien().getId() == null) {
-            throw new IllegalArgumentException("Sinh viên không được null");
-        }   
-
-        pdk.setMaPDK(generateMaPK());
+    public PhieuDangKyDTO createPDK(PDKCreateDTO pdk) {
+        PhieuDangKy pdkEntity = new PhieuDangKy();
+        pdkEntity.setHocKi(pdk.getHocKi());
+        pdkEntity.setNamHoc(pdk.getNamHoc());
+        pdkEntity.setTongTinChi(pdk.getSoTinChi());
+        pdkEntity.setMaPDK(generateMaPK());
         
-        String sinhVienId = pdk.getSinhVien().getId();
-        SinhVien existingSinhVien = sinhVienRepo.findById(sinhVienId)
-            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy sinh viên với ID: " + sinhVienId));
+        SinhVien existingSinhVien = sinhVienRepo.findById(pdk.getMaSV())
+            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy sinh viên với ID: " + pdk.getMaSV()));
 
-        pdk.setSinhVien(existingSinhVien);
-        PhieuDangKy entity = phieuDangKyRepo.save(pdk);
+        pdkEntity.setSinhVien(existingSinhVien);
+        PhieuDangKy entity = phieuDangKyRepo.save(pdkEntity);
         PhieuDangKyDTO entityDTO = Utils.mapPhieuDangKyToPhieuDangKyDTO(entity);
         return entityDTO;
     }
 
-    public PhieuDangKyDTO updatePDK(String maPDK, PhieuDangKy updated) {
+    public PhieuDangKyDTO updatePDK(String maPDK, PDKUpdateDTO updated) {
         PhieuDangKy existing = phieuDangKyRepo.findById(maPDK)
                                 .orElseThrow(() -> new EntityNotFoundException("PhieuDangKy not found with maPDK: " + maPDK));
 
         existing.setHocKi(updated.getHocKi());
         existing.setNamHoc(updated.getNamHoc());
-        existing.setTongTinChi(updated.getTongTinChi());
-
-        if(updated.getSinhVien() != null) {
-            existing.setSinhVien(updated.getSinhVien());
-        }
+        existing.setTongTinChi(updated.getSoTinChi());
 
         phieuDangKyRepo.save(existing);
 

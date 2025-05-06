@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import CNTTK18.JobBE.DTO.PhieuDangKy.PDKCreateDTO;
+import CNTTK18.JobBE.DTO.PhieuDangKy.PDKUpdateDTO;
 import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyDTO;
 import CNTTK18.JobBE.DTO.Response.ResponseMessage;
-import CNTTK18.JobBE.Models.PhieuDangKy;
 import CNTTK18.JobBE.Services.PhieuDangKyService;
 
 @RestController
@@ -40,31 +41,31 @@ public class PhieuDangKyController {
     }
 
     @PostMapping
-    public ResponseEntity<PhieuDangKyDTO> createPhieuDangKy(@RequestBody PhieuDangKy pdk) {
+    public ResponseEntity<PhieuDangKyDTO> createPhieuDangKy(@RequestBody PDKCreateDTO pdk) {
         PhieuDangKyDTO phieuDangKy = phieuDangKyService.createPDK(pdk);
         return new ResponseEntity<>(phieuDangKy, HttpStatus.CREATED);
     } 
 
     @PutMapping("/{maPDK}")
-    public ResponseEntity<PhieuDangKyDTO> updatePDK(@PathVariable("maPDK") String maPDK, @RequestBody PhieuDangKy updated) {
+    public ResponseEntity<PhieuDangKyDTO> updatePDK(@PathVariable String maPDK, @RequestBody PDKUpdateDTO updated) {
         PhieuDangKyDTO updatedPDKy = phieuDangKyService.updatePDK(maPDK, updated);
         return ResponseEntity.ok(updatedPDKy);
     }
 
     @DeleteMapping("/{maPDK}")
-    public ResponseEntity<ResponseMessage> deletePDK(@PathVariable("maPDK") String maPDK) {
+    public ResponseEntity<ResponseMessage> deletePDK(@PathVariable String maPDK) {
         phieuDangKyService.deletePDK(maPDK);
         return ResponseEntity.ok(new ResponseMessage("PDK with maPDK " + maPDK + " has been deleted successfully."));
     }
 
-    @PostMapping("/{maPDK}/add-class/{maLH}")
-    public ResponseEntity<ResponseMessage> addClassToRegistration(@PathVariable("maPDK") String maPDK, @PathVariable("maLH") String maLH) {
+    @PostMapping("/{maPDK}/class/{maLH}")
+    public ResponseEntity<ResponseMessage> addClassToRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.addClassToRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã thêm lớp học với maLH " + maLH + " vào PDK với maPDK " + maPDK));
     }
 
-    @DeleteMapping("{maPDK}/remove-class/{maLH}")
-    public ResponseEntity<ResponseMessage> removeClassFromRegistration(@PathVariable("maPDK") String maPDK, @PathVariable("maLH") String maLH) {
+    @DeleteMapping("{maPDK}/class/{maLH}")
+    public ResponseEntity<ResponseMessage> removeClassFromRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.removeClassFromRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã xóa lớp học với maLH \" + maLH + \" vào PDK với maPDK \" + maPDK"));
     }
