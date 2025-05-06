@@ -64,7 +64,6 @@ CREATE TABLE monhoc(
     TenMH VARCHAR(100) not null unique,
     SoTinChi INT not null,
     MaKhoa VARCHAR(30) not null,
-    SoLuongSinhVienToiDa int not null,
     foreign key (MaKhoa) references khoa(MaKhoa)
 );
 
@@ -118,7 +117,7 @@ CREATE TABLE dieukientienquyet(
 );
 
 CREATE TABLE phieudangkylophoc(
-	Id int primary key,
+	Id int AUTO_INCREMENT primary key,
 	MaPDK VARCHAR(30) not null,
     MaLH VARCHAR(30) not null,
     foreign key (MaPDK) references phieudangky(MaPDK),

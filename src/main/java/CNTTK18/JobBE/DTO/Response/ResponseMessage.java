@@ -1,10 +1,12 @@
 package CNTTK18.JobBE.DTO.Response;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class ResponseMessage {
     private String message;
+
+    public ResponseMessage(String message) {
+        this.message = message;
+    }
 }

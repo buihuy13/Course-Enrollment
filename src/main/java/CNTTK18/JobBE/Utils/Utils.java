@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyDTO;
+import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyLopHocDTO;
 import CNTTK18.JobBE.DTO.Request.UserRequest;
 import CNTTK18.JobBE.DTO.User.StudentDTO;
 import CNTTK18.JobBE.DTO.User.TeacherDTO;
@@ -136,9 +138,37 @@ public class Utils {
         return newGV;
     }
 
+    public static PhieuDangKyDTO mapPhieuDangKyToPhieuDangKyDTO(PhieuDangKy entity) {
+        SinhVien sv = entity.getSinhVien();
+
+        StudentDTO studentDTO = Utils.mapStudentEntityToStudentDTO(sv);
+
+        List<PhieuDangKyLopHocDTO> lopHocDTOs = entity.getPhieuDangKyLopHocList().stream().map(lh -> 
+            new PhieuDangKyLopHocDTO(
+                lh.getLopHoc().getMaLH(), 
+                lh.getLopHoc().getMonHoc().getTenMH()
+            )
+        ).collect(Collectors.toList());
+
+        return new PhieuDangKyDTO(
+            entity.getMaPDK(),
+            entity.getHocKi(),
+            entity.getNamHoc(),
+            entity.getTongTinChi(),
+            lopHocDTOs,
+            studentDTO
+        );
+    }
+
     public static List<UserRequest> mapUserListEntityToUserListDTO(List<Users> usersList) {
         return usersList.stream()
                         .map(Utils::mapUserEntityToUserDTO)
+                        .collect(Collectors.toList());
+    }
+
+    public static List<PhieuDangKyDTO> mapPDKListEntityToPDKListDTO(List<PhieuDangKy> PDKList) {
+        return PDKList.stream()
+                        .map(Utils::mapPhieuDangKyToPhieuDangKyDTO)
                         .collect(Collectors.toList());
     }
 }

@@ -55,6 +55,10 @@ public class LopHoc {
     private int soLuongSinhVien;
 
     @NotNull
+    @Column(name = "soluongsinhvientoida")
+    private int soLuongSinhVienToiDa;
+
+    @NotNull
     @Column(name = "tietbatdau")
     private int tietBatDau;
 

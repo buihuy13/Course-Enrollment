@@ -1,5 +1,3 @@
-alter table monhoc drop column soluongsinhvientoida;
-
 INSERT INTO monhoc(mamh, tenmh, sotinchi, makhoa) VALUES
 ('IT001', 'Nhap mon lap trinh', 4, 'CS'),
 ('IT002', 'Lap trinh huong doi tuong', 4, 'SE'),
