@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y default-mysql-client
 # Build Stage
 FROM base AS build
 WORKDIR /app
-COPY build.gradle settings.gradle.kts ./
+COPY build.gradle.kts settings.gradle.kts ./
 COPY src ./src
 RUN ./gradlew clean build --no-daemon -x test
     

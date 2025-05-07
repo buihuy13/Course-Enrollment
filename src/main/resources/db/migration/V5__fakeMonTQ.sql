@@ -1,4 +1,4 @@
-INSERT INTO montienquyet(mamh) VALUES
+INSERT INTO montienquyet(MaMH) VALUES
 ('IT001'),
 ('IT002'),
 ('IT003'),

@@ -12,7 +12,7 @@ insert into users(`ID`, `Password`, `Email`, `HoTen`, `NgaySinh`, `GioiTinh`, `R
  ("testadminid", "$2a$12$xv4.GmxuJeUUs54wJNwPdODdcvnHs7ikvpCuLeVVMy4tki5hZLq/m", "testadmin@gmail.com", "TestAdmin", "2004-4-13", "Nam", 3);
  
  -- fake data khoa
- insert into khoa (makhoa, tenkhoa) values
+ insert into khoa (MaKhoa, TenKhoa) values
     ("CS", "Khoa hoc May tinh"),
     ("SE", "Cong nghe Phan mem"),
     ("CE", "Ky thuat May tinh"),
@@ -21,7 +21,7 @@ insert into users(`ID`, `Password`, `Email`, `HoTen`, `NgaySinh`, `GioiTinh`, `R
     ("ISE", "Khoa hoc va Ky thuat Thong tin");
 
 -- fake data chuyennganh
-insert into chuyennganh (manganh, tennganh, makhoa) values
+insert into chuyennganh (MaNganh, TenNganh, MaKhoa) values
     ("KHMT", "Khoa hoc May tinh", "CS"),
     ("TTNT", "Tri tue Nhan tao", "CS"),
     ("KTPM", "Ky thuat Phan mem", "SE"),
@@ -35,12 +35,12 @@ insert into chuyennganh (manganh, tennganh, makhoa) values
     ("TKVM", "Thiet ke Vi mach", "ISE");
 
 -- fake data sinhvien
-insert into sinhvien(id, mssv, manganh) values
+insert into sinhvien(Id, MSSV, MaNganh) values
  ("testsinhvienid", "23520593", "CNTT");
 
 -- fake data giangvien
-insert into giangvien(id, msgv, makhoa) values
+insert into giangvien(Id, MSGV, MaKhoa) values
  ("testgiangvienid", "12345678", "ISE");
 
 -- fake data admin
-insert into admin(id) values ("testadminid");
+insert into admin(Id) values ("testadminid");

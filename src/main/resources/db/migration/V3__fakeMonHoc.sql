@@ -1,5 +1,5 @@
 
-INSERT INTO monhoc(mamh, tenmh, sotinchi, makhoa) VALUES
+INSERT INTO monhoc(MaMH, TenMH, SoTinChi, MaKhoa) VALUES
 ('IT001', 'Nhap mon lap trinh', 4, 'CS'),
 ('IT002', 'Lap trinh huong doi tuong', 4, 'SE'),
 ('IT003', 'Cau truc du lieu va giai thuat', 4, 'CS'),

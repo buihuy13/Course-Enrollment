@@ -48,7 +48,7 @@ CREATE TABLE sinhvien(
     FOREIGN KEY (MaNganh) REFERENCES chuyennganh(MaNganh)
 );
 
-CREATE TABLE PHIEUDANGKY(
+CREATE TABLE phieudangky(
 	MaPDK VARCHAR(30) PRIMARY KEY,
     HocKi INT not null,
     NamHoc VARCHAR(30) not null,
@@ -66,7 +66,7 @@ CREATE TABLE monhoc(
 );
 
 -- MaGV là ID của GiangVien
-CREATE TABLE LOPHOC(
+CREATE TABLE lophoc(
 	MaLH VARCHAR(30) PRIMARY KEY,
     NgayBatDau DATE not null,
     NgayKetThuc DATE not null,

@@ -1,5 +1,5 @@
 
-INSERT INTO Users (id, password, email, hoten, ngaysinh, gioitinh, roleid) VALUES
+INSERT INTO users (Id, Password, Email, HoTen, NgaySinh, GioiTinh, RoleId) VALUES
 ('U001', '$2a$12$wIb5RWMZplRmWVuHjN2uZeCMt1rk4WssDRHHV3eiPv.n67CCwj0YC', 'ngocle@example.com', 'Ngoc Le', '1990-01-01', 'Female', 2),
 ('U002', '$2a$12$BCYetnf68YinYC69Qs0Cd.qKonudBS8ixfIw.XHzfVtIhqE5utQ3i', 'minhtran@example.com', 'Minh Tran', '1992-03-15', 'Male', 2),
 ('U003', '$2a$12$qcyxUTloxOA03OssD8gka.66RhwjPC28RpfsFYrOeuSuJEL9/pcHO', 'hoapham@example.com', 'Hoa Pham', '1995-07-25', 'Female', 2),
@@ -22,7 +22,7 @@ INSERT INTO Users (id, password, email, hoten, ngaysinh, gioitinh, roleid) VALUE
 ('U020', '$2a$12$lLlKwCFHt0n0ZUDLOC2AXektMfZVfwFhHuCu3pXam.EpGwubH93rm', 'nganpham@example.com', 'Ngan Pham', '1991-08-03', 'Female', 1);
 
 -- insert giangvien
-INSERT INTO giangvien (msgv, id, makhoa) VALUES
+INSERT INTO giangvien (MSGV, Id, MaKhoa) VALUES
 ('23412', 'U001', 'SE'),
 ('546435', 'U002', 'IS'),
 ('645376', 'U003', 'CS'),
@@ -34,7 +34,7 @@ INSERT INTO giangvien (msgv, id, makhoa) VALUES
 ('25345', 'U009', 'CS'),
 ('56436', 'U010', 'ISE');
 
-INSERT INTO sinhvien (mssv, id, manganh) VALUES
+INSERT INTO sinhvien (MSSV, Id, MaNganh) VALUES
 ('645432', 'U011', 'KHMT'),
 ('2436543', 'U012', 'TTNT'),
 ('523452', 'U013', 'KTPM'),

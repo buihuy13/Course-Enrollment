@@ -46,12 +46,12 @@ BEGIN
   END IF;
  
  -- Lấy số lượng sinhvien tối đa của lớp học
- SELECT SoLuongSinhVienToiDa INTO soluongsinhvientoida
+ SELECT lh.SoLuongSinhVienToiDa INTO soluongsinhvientoida
  FROM lophoc as lh
  WHERE lh.MaLH = NEW.MaLH;
  
  -- Lấy số lượng sinhvien của lớp học
- SELECT SoLuongSinhVien INTO soluongsinhvien
+ SELECT lh.SoLuongSinhVien INTO soluongsinhvien
  FROM lophoc as lh
  WHERE lh.MaLH = NEW.MaLH;
  
@@ -63,7 +63,7 @@ BEGIN
  
  -- Tăng số lượng sinhvien của lớp học đó sau khi đăng ký thành công
  UPDATE lophoc AS lh
- SET SoLuongSinhVien = IFNULL(SoLuongSinhVien, 0) + 1
+ SET lh.SoLuongSinhVien = IFNULL(lh.SoLuongSinhVien, 0) + 1
  WHERE lh.MaLH = NEW.MaLH;
  
   -- Tăng số tín chỉ của phiếu đăng ký sau khi đăng ký
