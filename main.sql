@@ -48,7 +48,7 @@ CREATE TABLE sinhvien(
     FOREIGN KEY (MaNganh) REFERENCES chuyennganh(MaNganh)
 );
 
-CREATE TABLE PHIEUDANGKY(
+CREATE TABLE phieudangky(
 	MaPDK VARCHAR(30) PRIMARY KEY,
     HocKi INT not null,
     NamHoc VARCHAR(30) not null,
@@ -66,7 +66,7 @@ CREATE TABLE monhoc(
 );
 
 -- MaGV là ID của GiangVien
-CREATE TABLE LOPHOC(
+CREATE TABLE lophoc(
 	MaLH VARCHAR(30) PRIMARY KEY,
     NgayBatDau DATE not null,
     NgayKetThuc DATE not null,
@@ -137,7 +137,7 @@ insert into users(`ID`, `Password`, `Email`, `HoTen`, `NgaySinh`, `GioiTinh`, `R
  ("testadminid", "$2a$12$xv4.GmxuJeUUs54wJNwPdODdcvnHs7ikvpCuLeVVMy4tki5hZLq/m", "testadmin@gmail.com", "TestAdmin", "2004-4-13", "Nam", 3);
  
  -- fake data khoa
- insert into khoa (makhoa, tenkhoa) values
+ insert into khoa (MaKhoa, TenKhoa) values
     ("CS", "Khoa hoc May tinh"),
     ("SE", "Cong nghe Phan mem"),
     ("CE", "Ky thuat May tinh"),
@@ -146,7 +146,7 @@ insert into users(`ID`, `Password`, `Email`, `HoTen`, `NgaySinh`, `GioiTinh`, `R
     ("ISE", "Khoa hoc va Ky thuat Thong tin");
 
 -- fake data chuyennganh
-insert into chuyennganh (manganh, tennganh, makhoa) values
+insert into chuyennganh (MaNganh, TenNganh, MaKhoa) values
     ("KHMT", "Khoa hoc May tinh", "CS"),
     ("TTNT", "Tri tue Nhan tao", "CS"),
     ("KTPM", "Ky thuat Phan mem", "SE"),
@@ -160,19 +160,19 @@ insert into chuyennganh (manganh, tennganh, makhoa) values
     ("TKVM", "Thiet ke Vi mach", "ISE");
 
 -- fake data sinhvien
-insert into sinhvien(id, mssv, manganh) values
+insert into sinhvien(Id, MSSV, MaNganh) values
  ("testsinhvienid", "23520593", "CNTT");
 
 -- fake data giangvien
-insert into giangvien(id, msgv, makhoa) values
+insert into giangvien(Id, MSGV, MaKhoa) values
  ("testgiangvienid", "12345678", "ISE");
 
 -- fake data admin
-insert into admin(id) values ("testadminid");
+insert into admin(Id) values ("testadminid");
 
 
 -- V3 -- 
-INSERT INTO monhoc(mamh, tenmh, sotinchi, makhoa) VALUES
+INSERT INTO monhoc(MaMH, TenMH, SoTinChi, MaKhoa) VALUES
 ('IT001', 'Nhap mon lap trinh', 4, 'CS'),
 ('IT002', 'Lap trinh huong doi tuong', 4, 'SE'),
 ('IT003', 'Cau truc du lieu va giai thuat', 4, 'CS'),
@@ -232,7 +232,7 @@ INSERT INTO monhoc(mamh, tenmh, sotinchi, makhoa) VALUES
 
 -- V4 -- 
 
-INSERT INTO Users (id, password, email, hoten, ngaysinh, gioitinh, roleid) VALUES
+INSERT INTO users (Id, `Password`, Email, HoTen, NgaySinh, GioiTinh, RoleId) VALUES
 ('U001', '$2a$12$wIb5RWMZplRmWVuHjN2uZeCMt1rk4WssDRHHV3eiPv.n67CCwj0YC', 'ngocle@example.com', 'Ngoc Le', '1990-01-01', 'Female', 2),
 ('U002', '$2a$12$BCYetnf68YinYC69Qs0Cd.qKonudBS8ixfIw.XHzfVtIhqE5utQ3i', 'minhtran@example.com', 'Minh Tran', '1992-03-15', 'Male', 2),
 ('U003', '$2a$12$qcyxUTloxOA03OssD8gka.66RhwjPC28RpfsFYrOeuSuJEL9/pcHO', 'hoapham@example.com', 'Hoa Pham', '1995-07-25', 'Female', 2),
@@ -255,7 +255,7 @@ INSERT INTO Users (id, password, email, hoten, ngaysinh, gioitinh, roleid) VALUE
 ('U020', '$2a$12$lLlKwCFHt0n0ZUDLOC2AXektMfZVfwFhHuCu3pXam.EpGwubH93rm', 'nganpham@example.com', 'Ngan Pham', '1991-08-03', 'Female', 1);
 
 -- insert giangvien
-INSERT INTO giangvien (msgv, id, makhoa) VALUES
+INSERT INTO giangvien (MSGV, Id, MaKhoa) VALUES
 ('23412', 'U001', 'SE'),
 ('546435', 'U002', 'IS'),
 ('645376', 'U003', 'CS'),
@@ -267,7 +267,7 @@ INSERT INTO giangvien (msgv, id, makhoa) VALUES
 ('25345', 'U009', 'CS'),
 ('56436', 'U010', 'ISE');
 
-INSERT INTO sinhvien (mssv, id, manganh) VALUES
+INSERT INTO sinhvien (MSSV, Id, MaNganh) VALUES
 ('645432', 'U011', 'KHMT'),
 ('2436543', 'U012', 'TTNT'),
 ('523452', 'U013', 'KTPM'),
@@ -282,7 +282,7 @@ INSERT INTO sinhvien (mssv, id, manganh) VALUES
 
 -- V5 --
 
-INSERT INTO montienquyet(mamh) VALUES
+INSERT INTO montienquyet(MaMH) VALUES
 ('IT001'),
 ('IT002'),
 ('IT003'),
@@ -328,7 +328,7 @@ BEGIN
  WHERE pdk.MaPDK = NEW.MaPDK;
  
  -- Lấy mã môn học của lớp học được thêm vào
- SELECT MaMH INTO mamh_lophoc
+ SELECT lh.MaMH INTO mamh_lophoc
  FROM lophoc lh 
  WHERE lh.MaLH = NEW.MaLH;
  
@@ -357,12 +357,12 @@ BEGIN
   END IF;
  
  -- Lấy số lượng sinhvien tối đa của lớp học
- SELECT SoLuongSinhVienToiDa INTO soluongsinhvientoida
+ SELECT lh.SoLuongSinhVienToiDa INTO soluongsinhvientoida
  FROM lophoc as lh
  WHERE lh.MaLH = NEW.MaLH;
  
  -- Lấy số lượng sinhvien của lớp học
- SELECT SoLuongSinhVien INTO soluongsinhvien
+ SELECT lh.SoLuongSinhVien INTO soluongsinhvien
  FROM lophoc as lh
  WHERE lh.MaLH = NEW.MaLH;
  
@@ -374,7 +374,7 @@ BEGIN
  
  -- Tăng số lượng sinhvien của lớp học đó sau khi đăng ký thành công
  UPDATE lophoc AS lh
- SET SoLuongSinhVien = IFNULL(SoLuongSinhVien, 0) + 1
+ SET lh.SoLuongSinhVien = IFNULL(lh.SoLuongSinhVien, 0) + 1
  WHERE lh.MaLH = NEW.MaLH;
  
   -- Tăng số tín chỉ của phiếu đăng ký sau khi đăng ký
