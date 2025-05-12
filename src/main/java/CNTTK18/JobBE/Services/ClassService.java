@@ -148,7 +148,8 @@ public class ClassService {
                 if (currentRow.getCell(6) != null) {
                     DataFormatter dataFormatter = new DataFormatter();
                     String a = dataFormatter.formatCellValue(currentRow.getCell(6));
-                    lophoc.setSoLuongSinhVien(Integer.parseInt(a));
+                    lophoc.setSoLuongSinhVienToiDa(Integer.parseInt(a));
+                    lophoc.setSoLuongSinhVien(0);
                 }
 
                 // tiet bat dau
