@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.Khoa.KhoaDTO;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Services.KhoaService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/khoa")
+@PreAuthorize("hasRole('ADMIN')")
 public class KhoaController {
 
     private KhoaService service;
@@ -33,6 +36,7 @@ public class KhoaController {
     }
 
     @GetMapping("")
+    @PermitAll
     public ResponseEntity<?> getAllKhoa() {
         List<KhoaDTO> khoa = new ArrayList<>();
         khoa = service.getAllKhoa();

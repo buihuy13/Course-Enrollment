@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,11 @@ import CNTTK18.JobBE.DTO.PhieuDangKy.PDKUpdateDTO;
 import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyDTO;
 import CNTTK18.JobBE.DTO.Response.ResponseMessage;
 import CNTTK18.JobBE.Services.PhieuDangKyService;
+import jakarta.annotation.security.PermitAll;
 
 @RestController
 @RequestMapping("/registration-forms")
+@PreAuthorize("hasRole('ADMIN')")
 public class PhieuDangKyController {
     private final PhieuDangKyService phieuDangKyService;
 
@@ -59,12 +62,14 @@ public class PhieuDangKyController {
     }
 
     @PostMapping("/{maPDK}/class/{maLH}")
+    @PermitAll
     public ResponseEntity<ResponseMessage> addClassToRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.addClassToRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã thêm lớp học với maLH " + maLH + " vào PDK với maPDK " + maPDK));
     }
 
     @DeleteMapping("{maPDK}/class/{maLH}")
+    @PermitAll
     public ResponseEntity<ResponseMessage> removeClassFromRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.removeClassFromRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã xóa lớp học với maLH \" + maLH + \" vào PDK với maPDK \" + maPDK"));
