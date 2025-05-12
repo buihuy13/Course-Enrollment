@@ -37,6 +37,7 @@ public class PhieuDangKyController {
     } 
 
     @GetMapping("/{maPDK}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<PhieuDangKyDTO> getPDK(@PathVariable String maPDK) {
         PhieuDangKyDTO pdkDTO = phieuDangKyService.getPDK(maPDK);
         return new ResponseEntity<>(pdkDTO, HttpStatus.OK);
