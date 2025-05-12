@@ -19,7 +19,6 @@ import CNTTK18.JobBE.DTO.PhieuDangKy.PDKUpdateDTO;
 import CNTTK18.JobBE.DTO.PhieuDangKy.PhieuDangKyDTO;
 import CNTTK18.JobBE.DTO.Response.ResponseMessage;
 import CNTTK18.JobBE.Services.PhieuDangKyService;
-import jakarta.annotation.security.PermitAll;
 
 @RestController
 @RequestMapping("/registration-forms")
@@ -62,14 +61,14 @@ public class PhieuDangKyController {
     }
 
     @PostMapping("/{maPDK}/class/{maLH}")
-    @PermitAll
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ResponseMessage> addClassToRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.addClassToRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã thêm lớp học với maLH " + maLH + " vào PDK với maPDK " + maPDK));
     }
 
     @DeleteMapping("{maPDK}/class/{maLH}")
-    @PermitAll
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ResponseMessage> removeClassFromRegistration(@PathVariable String maPDK, @PathVariable String maLH) {
         phieuDangKyService.removeClassFromRegistration(maPDK, maLH);
         return ResponseEntity.ok(new ResponseMessage("Đã xóa lớp học với maLH \" + maLH + \" vào PDK với maPDK \" + maPDK"));
