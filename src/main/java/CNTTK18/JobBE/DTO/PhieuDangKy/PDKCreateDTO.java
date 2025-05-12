@@ -19,7 +19,6 @@ public class PDKCreateDTO {
     @NotBlank
     private String namHoc;
     @NotNull
-    @Min(1)
     private int soTinChi;
     @NotBlank
     private String maSV;
