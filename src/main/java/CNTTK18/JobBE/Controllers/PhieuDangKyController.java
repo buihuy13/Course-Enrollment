@@ -43,7 +43,15 @@ public class PhieuDangKyController {
         return new ResponseEntity<>(pdkDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/student/{maSV}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<PhieuDangKyDTO> getPDKByStudent(@PathVariable String maSV) {
+        PhieuDangKyDTO pdkDTO = phieuDangKyService.getPDKByStudent(maSV);
+        return new ResponseEntity<PhieuDangKyDTO>(pdkDTO, HttpStatus.OK);
+    }
+
     @PostMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<PhieuDangKyDTO> createPhieuDangKy(@RequestBody PDKCreateDTO pdk) {
         PhieuDangKyDTO phieuDangKy = phieuDangKyService.createPDK(pdk);
         return new ResponseEntity<>(phieuDangKy, HttpStatus.CREATED);
