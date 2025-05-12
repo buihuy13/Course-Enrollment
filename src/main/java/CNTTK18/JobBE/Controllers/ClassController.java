@@ -20,6 +20,7 @@ import CNTTK18.JobBE.DTO.Class.ClassDTO;
 import CNTTK18.JobBE.DTO.Class.ClassDetailsDTO;
 import CNTTK18.JobBE.Helper.ExcelHelper;
 import CNTTK18.JobBE.Services.ClassService;
+import jakarta.annotation.security.PermitAll;
 
 @RestController
 @RequestMapping("/classes")
@@ -34,6 +35,7 @@ public class ClassController {
     record MessageResponse(String message) {}
 
     @GetMapping("")
+    @PermitAll
     public ResponseEntity<?> getAllClasses() {
         List<ClassDetailsDTO> classes = classService.getAllClasses();
         return ResponseEntity.ok(classes);

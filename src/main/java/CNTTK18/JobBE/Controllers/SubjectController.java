@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.MonHoc.CreateSubjectDTO;
 import CNTTK18.JobBE.DTO.MonHoc.SubjectDTO;
 import CNTTK18.JobBE.Services.SubjectService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,6 +31,7 @@ public class SubjectController {
     record MessageResponse(String message) {}
 
     @GetMapping("")
+    @PermitAll
     public ResponseEntity<?> getAllSubjects() {
         var subjects = subjectService.getAllSubjects();
         return ResponseEntity.ok(subjects);
