@@ -16,7 +16,6 @@ import CNTTK18.JobBE.DTO.Nganh.NganhDTO;
 import CNTTK18.JobBE.DTO.Nganh.NganhReturnDTO;
 import CNTTK18.JobBE.DTO.Response.ResponseMessage;
 import CNTTK18.JobBE.Services.NganhService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,7 +29,7 @@ public class NganhController {
     }
 
     @GetMapping("")
-    @PermitAll
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllMajors() {
         return ResponseEntity.ok(nganhService.getAllMajors());
     }

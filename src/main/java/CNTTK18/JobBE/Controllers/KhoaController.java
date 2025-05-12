@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import CNTTK18.JobBE.DTO.Khoa.KhoaDTO;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Services.KhoaService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 
 @RestController
@@ -36,7 +35,7 @@ public class KhoaController {
     }
 
     @GetMapping("")
-    @PermitAll
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllKhoa() {
         List<KhoaDTO> khoa = new ArrayList<>();
         khoa = service.getAllKhoa();
