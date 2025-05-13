@@ -145,8 +145,16 @@ public class Utils {
 
         List<PhieuDangKyLopHocDTO> lopHocDTOs = entity.getPhieuDangKyLopHocList().stream().map(lh -> 
             new PhieuDangKyLopHocDTO(
-                lh.getLopHoc().getMaLH(), 
-                lh.getLopHoc().getMonHoc().getTenMH()
+                lh.getLopHoc().getMaLH(),
+                lh.getLopHoc().getMonHoc().getTenMH(),
+                lh.getLopHoc().getNgayBatDau(),
+                lh.getLopHoc().getNgayKetThuc(),
+                lh.getLopHoc().getHocKi(),
+                lh.getLopHoc().getNamHoc(),
+                lh.getLopHoc().getSoLuongSinhVien(),
+                lh.getLopHoc().getTietBatDau(),
+                lh.getLopHoc().getTietKetThuc(),
+                lh.getLopHoc().getThu()
             )
         ).collect(Collectors.toList());
 
