@@ -155,7 +155,8 @@ public class Utils {
                 lh.getLopHoc().getSoLuongSinhVienToiDa(),
                 lh.getLopHoc().getTietBatDau(),
                 lh.getLopHoc().getTietKetThuc(),
-                lh.getLopHoc().getThu()
+                lh.getLopHoc().getThu(),
+                lh.getLopHoc().getMonHoc().getSoTinChi()
             )
         ).collect(Collectors.toList());
 

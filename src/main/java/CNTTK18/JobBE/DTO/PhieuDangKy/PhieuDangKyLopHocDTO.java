@@ -21,4 +21,5 @@ public class PhieuDangKyLopHocDTO {
     private int tietBatDau;
     private int tietKetThuc; 
     private int thu;
+    private int soTinChi;
 }
