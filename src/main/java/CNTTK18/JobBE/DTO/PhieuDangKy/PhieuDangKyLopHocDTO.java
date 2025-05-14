@@ -17,6 +17,7 @@ public class PhieuDangKyLopHocDTO {
     private int hocKi;
     private String namHoc;
     private int soLuongSinhVien;
+    private int soLuongSinhVienToiDa;
     private int tietBatDau;
     private int tietKetThuc; 
     private int thu;

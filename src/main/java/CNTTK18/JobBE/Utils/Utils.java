@@ -152,6 +152,7 @@ public class Utils {
                 lh.getLopHoc().getHocKi(),
                 lh.getLopHoc().getNamHoc(),
                 lh.getLopHoc().getSoLuongSinhVien(),
+                lh.getLopHoc().getSoLuongSinhVienToiDa(),
                 lh.getLopHoc().getTietBatDau(),
                 lh.getLopHoc().getTietKetThuc(),
                 lh.getLopHoc().getThu()
