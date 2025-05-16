@@ -279,36 +279,7 @@ INSERT INTO sinhvien (MSSV, Id, MaNganh) VALUES
 ('4253487', 'U019', 'KHDL'),
 ('13221', 'U020', 'CNTT');
 
-
 -- V5 --
-
-INSERT INTO montienquyet(MaMH) VALUES
-('IT001'),
-('IT002'),
-('IT003'),
-('IT004'),
-('IT005'),
-('IT006'),
-('IT007'),
-('IT010'),
-('IT012'),
-('IE101'),
-('IE103'),
-('IE104'),
-('IE105'),
-('IE106'),
-('IE108'),
-('IS402'),
-('IE102'),
-('IE212'),
-('IE303'),
-('IE207'),
-('DS204'),
-('IE402');
-
-
--- V6 --
-
 
 -- Kiểm tra các môn được đăng ký đã thỏa mãn các môn tiên quyết chưa
 DELIMITER //
