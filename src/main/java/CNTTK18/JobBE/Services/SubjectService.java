@@ -12,11 +12,9 @@ import CNTTK18.JobBE.Exception.DuplicateEntityException;
 import CNTTK18.JobBE.Models.DieuKienTienQuyet;
 import CNTTK18.JobBE.Models.Khoa;
 import CNTTK18.JobBE.Models.MonHoc;
-import CNTTK18.JobBE.Models.MonTienQuyet;
 import CNTTK18.JobBE.Repositories.DieuKienTienQuyetRepo;
 import CNTTK18.JobBE.Repositories.KhoaRepo;
 import CNTTK18.JobBE.Repositories.MonHocRepo;
-import CNTTK18.JobBE.Repositories.MonTienQuyetRepo;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -24,10 +22,8 @@ public class SubjectService {
     private final MonHocRepo subjectRepo;
     private final KhoaRepo khoaRepo;
     private final DieuKienTienQuyetRepo dieuKienTienQuyetRepo;
-    private final MonTienQuyetRepo monTienQuyetRepo;
 
-    public SubjectService(MonHocRepo subjectRepo, KhoaRepo khoaRepo, DieuKienTienQuyetRepo dieuKienTienQuyetRepo, MonTienQuyetRepo monTienQuyetRepo) {
-        this.monTienQuyetRepo = monTienQuyetRepo;
+    public SubjectService(MonHocRepo subjectRepo, KhoaRepo khoaRepo, DieuKienTienQuyetRepo dieuKienTienQuyetRepo) {
         this.subjectRepo = subjectRepo;
         this.khoaRepo = khoaRepo;
         this.dieuKienTienQuyetRepo = dieuKienTienQuyetRepo;
@@ -82,7 +78,7 @@ public class SubjectService {
 
         if (newSubject.getMaMonTienQuyet() != null) {
             for (String maMonTienQuyet : newSubject.getMaMonTienQuyet()) {
-                MonTienQuyet monTienQuyet = monTienQuyetRepo.findMonTienQuyetByMaMH(maMonTienQuyet);
+                MonHoc monTienQuyet = subjectRepo.findMonHocByMaMH(maMonTienQuyet);
                 if (monTienQuyet == null) {
                     throw new EntityNotFoundException("Prerequisite subject not found with id: " + maMonTienQuyet);
                 }
@@ -126,7 +122,7 @@ public class SubjectService {
 
         if (dto.getMaMonTienQuyet() != null) {
             for (String maMonTienQuyet : dto.getMaMonTienQuyet()) {
-                MonTienQuyet monTienQuyet = monTienQuyetRepo.findMonTienQuyetByMaMH(maMonTienQuyet);
+                MonHoc monTienQuyet = subjectRepo.findMonHocByMaMH(maMonTienQuyet);
                 if (monTienQuyet == null) {
                     throw new EntityNotFoundException("Prerequisite subject not found with id: " + maMonTienQuyet);
                 }

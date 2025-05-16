@@ -32,5 +32,5 @@ public class DieuKienTienQuyet {
     @ManyToOne
     @NotNull
     @JoinColumn(name = "matq")
-    private MonTienQuyet monTienQuyet;
+    private MonHoc monTienQuyet;
 }
