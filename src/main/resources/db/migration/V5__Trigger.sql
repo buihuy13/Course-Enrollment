@@ -15,11 +15,23 @@ BEGIN
  SELECT pdk.MSSV INTO mssv 
  FROM phieudangky pdk
  WHERE pdk.MaPDK = NEW.MaPDK;
+
+ -- Kiểm tra sinh viên có tồn tại hay không
+ IF mssv IS NULL THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'MSSV không tồn tại';
+ END IF;
  
  -- Lấy mã môn học của lớp học được thêm vào
  SELECT MaMH INTO mamh_lophoc
  FROM lophoc lh 
  WHERE lh.MaLH = NEW.MaLH;
+ 
+    -- Kiểm tra môn học có tồn tại hay không
+ IF mamh_lophoc IS NULL THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Mã lớp học không tồn tại';
+ END IF;
  
  -- Số các môn tiên quyết cần để học môn vừa đăng ký
  SELECT COUNT(*) INTO total_montq
