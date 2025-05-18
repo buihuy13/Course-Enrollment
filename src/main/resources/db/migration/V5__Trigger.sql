@@ -111,6 +111,11 @@ BEGIN
  SELECT MaMH INTO mamh_lophoc
  FROM lophoc lh 
  WHERE lh.MaLH = OLD.MaLH;
+
+ IF mamh_lophoc IS NULL THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Mã lớp học không tồn tại';
+ END IF;
  
  -- Trừ tín chỉ của pdk
  UPDATE phieudangky AS pdk

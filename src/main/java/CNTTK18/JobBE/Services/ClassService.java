@@ -91,9 +91,6 @@ public class ClassService {
     public void processExcelFile(MultipartFile file) throws IOException {
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0);
-            
-            classRepo.deleteAll();
-            classRepo.flush();
 
             // Bỏ qua dòng header
             Iterator<Row> rows = sheet.iterator();

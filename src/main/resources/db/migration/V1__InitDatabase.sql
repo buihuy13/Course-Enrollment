@@ -83,25 +83,15 @@ CREATE TABLE lophoc(
     Thu INT not null
 );
 
-CREATE TABLE mondadat(
-	MaMH VARCHAR(30) PRIMARY KEY,
-    NamHoc VARCHAR(30) not null,
-    HocKi INT not null,
-    FOREIGN KEY (MaMH) references monhoc(MaMH)
-);
-
-CREATE TABLE montienquyet(
-	MaMH VARCHAR(30) PRIMARY KEY,
-    foreign key (MaMH) references monhoc(MaMH)
-);
-
 -- MSSV là id của sinhvien, không phải là mssv trong bảng SinhVien
 CREATE TABLE sinhvienmondadat(
 	Id int AUTO_INCREMENT primary key,
 	MSSV VARCHAR(30) not null,
     MaMH VARCHAR(30) not null,
+    NamHoc VARCHAR(30) not null,
+    HocKi INT not null,
     FOREIGN KEY (MSSV) REFERENCES sinhvien(Id),
-    foreign key (MaMH) references mondadat(MaMH),
+    foreign key (MaMH) references monhoc(MaMH),
     unique key unique_sv_mh (MSSV,MaMH)
 );
 
@@ -109,7 +99,7 @@ CREATE TABLE dieukientienquyet(
 	Id int AUTO_INCREMENT primary key,
 	MaTQ VARCHAR(30),
     MaMH VARCHAR(30),
-    foreign key (MaTQ) references montienquyet(MaMH),
+    foreign key (MaTQ) references monhoc(MaMH),
     foreign key (MaMH) references monhoc(MaMH),
     unique key unique_mhtq_mh (MaTQ,MaMH)
 );
