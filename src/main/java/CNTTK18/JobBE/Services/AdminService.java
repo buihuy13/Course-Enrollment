@@ -142,6 +142,7 @@ public class AdminService {
         updateSV.setChuyenNganh(chuyenNganh);
 
         if(userRequest.getMapdk() != null) {
+            @SuppressWarnings("unused")
             PhieuDangKy pdk = phieuDangKyRepo.findById(userRequest.getMapdk()).orElseThrow(() -> new EntityNotFoundException("Not Found PDK"));
         }
 
