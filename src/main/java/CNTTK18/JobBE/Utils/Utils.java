@@ -170,6 +170,12 @@ public class Utils {
         );
     }
 
+    public static List<PhieuDangKyDTO> mapPhieuDangKyLopHocListToPhieuDangKyLopHocDTO(List<PhieuDangKy> list) {
+        return list.stream()
+                    .map(Utils::mapPhieuDangKyToPhieuDangKyDTO)
+                    .collect(Collectors.toList());
+    }
+
     public static List<UserRequest> mapUserListEntityToUserListDTO(List<Users> usersList) {
         return usersList.stream()
                         .map(Utils::mapUserEntityToUserDTO)

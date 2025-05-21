@@ -119,14 +119,14 @@ public class PhieuDangKyService {
         phieuDangKyLopHocRepo.delete(pdklh);
     }
 
-    public PhieuDangKyDTO getPDKByStudent(String maSV) {
+    public List<PhieuDangKyDTO> getPDKByStudent(String maSV) {
         SinhVien sinhVien = sinhVienRepo.findByMssv(maSV)
             .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy sinh viên với mssv: " + maSV));
 
-        PhieuDangKy pdk = phieuDangKyRepo.findBySinhVien(sinhVien)
+        List<PhieuDangKy> pdk = phieuDangKyRepo.findBySinhVien(sinhVien)
             .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy phiếu đăng ký nào cho sinh viên với mssv: " + maSV));
 
-        PhieuDangKyDTO pdkDTO = Utils.mapPhieuDangKyToPhieuDangKyDTO(pdk);
+        List<PhieuDangKyDTO> pdkDTO = Utils.mapPDKListEntityToPDKListDTO(pdk);
         return pdkDTO;
     }
 }

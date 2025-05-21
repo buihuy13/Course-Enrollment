@@ -15,5 +15,5 @@ public interface PhieuDangKyRepo extends JpaRepository<PhieuDangKy, String> {
     @Query("SELECT pdk.maPDK FROM PhieuDangKy pdk WHERE pdk.maPDK LIKE 'PDK%' ORDER BY pdk.maPDK DESC")
     List<String> findAllMaPDK();
 
-    Optional<PhieuDangKy> findBySinhVien(SinhVien sinhVien);
+    Optional<List<PhieuDangKy>> findBySinhVien(SinhVien sinhVien);
 }
