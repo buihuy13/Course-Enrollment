@@ -9,6 +9,7 @@ import CNTTK18.JobBE.DTO.Auth.LoginDTO;
 import CNTTK18.JobBE.Models.TokenResponse;
 import CNTTK18.JobBE.Models.Users;
 import CNTTK18.JobBE.Repositories.UsersRepo;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AuthService {
@@ -31,7 +32,7 @@ public class AuthService {
     public boolean logout(String email) {
         Users user = repo.findByEmail(email);
         if (user == null) {
-            return false;
+            throw new EntityNotFoundException("User not found with email " + email);
         }
         return true;
     }
