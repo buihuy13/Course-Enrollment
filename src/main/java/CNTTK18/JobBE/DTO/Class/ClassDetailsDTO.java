@@ -58,8 +58,11 @@ public class ClassDetailsDTO {
     @NotNull
     private int soLuongSinhVien;
 
+    @NotNull
+    private int soLuongSinhVienToiDa;
+
     public ClassDetailsDTO(String malh, int hocKi, String namHoc, int tietBatDau, int tietKetThuc, int thu,
-            String magv, String tenGV, String mamh, String tenMH, Date ngayBatDau, Date ngayKetThuc, int soLuongSinhVien) {
+            String magv, String tenGV, String mamh, String tenMH, Date ngayBatDau, Date ngayKetThuc, int soLuongSinhVien, int soLuongSinhVienToiDa) {
         this.malh = malh;
         this.hocKi = hocKi;
         this.namHoc = namHoc;
@@ -73,5 +76,6 @@ public class ClassDetailsDTO {
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.soLuongSinhVien = soLuongSinhVien;
+        this.soLuongSinhVienToiDa = soLuongSinhVienToiDa;
     }
 }

@@ -10,7 +10,7 @@ import CNTTK18.JobBE.Models.LopHoc;
 import CNTTK18.JobBE.Models.PhieuDangKy;
 import CNTTK18.JobBE.Models.PhieuDangKyLopHoc;
 import CNTTK18.JobBE.Models.SinhVien;
-import CNTTK18.JobBE.Repositories.LopHocRepo;
+import CNTTK18.JobBE.Repositories.ClassRepo;
 import CNTTK18.JobBE.Repositories.PhieuDangKyLopHocRepo;
 import CNTTK18.JobBE.Repositories.PhieuDangKyRepo;
 import CNTTK18.JobBE.Repositories.SinhVienRepo;
@@ -20,11 +20,11 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class PhieuDangKyService {
     private final PhieuDangKyRepo phieuDangKyRepo;
-    private final LopHocRepo lopHocRepo;
+    private final ClassRepo lopHocRepo;
     private final PhieuDangKyLopHocRepo phieuDangKyLopHocRepo;
     private final SinhVienRepo sinhVienRepo;
 
-    public PhieuDangKyService(PhieuDangKyRepo phieuDangKyRepo, LopHocRepo lopHocRepo, PhieuDangKyLopHocRepo phieuDangKyLopHocRepo, SinhVienRepo sinhVienRepo) {
+    public PhieuDangKyService(PhieuDangKyRepo phieuDangKyRepo, ClassRepo lopHocRepo, PhieuDangKyLopHocRepo phieuDangKyLopHocRepo, SinhVienRepo sinhVienRepo) {
         this.phieuDangKyRepo = phieuDangKyRepo;
         this.lopHocRepo = lopHocRepo;
         this.phieuDangKyLopHocRepo = phieuDangKyLopHocRepo;
