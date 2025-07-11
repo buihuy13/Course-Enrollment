@@ -1,29 +1,22 @@
-# Base Stage
-FROM eclipse-temurin:21-jdk-jammy AS base
+#Stage 1: builder
+FROM gradle:8.8.0-jdk21-jammy AS builder
 WORKDIR /app
-COPY gradlew ./
+#Cache
+COPY build.gradle.kts settings.gradle.kts gradlew ./
 COPY gradle ./gradle
-RUN chmod +x ./gradlew
-RUN ./gradlew --version
 
-##Install mysql client
-RUN apt-get update && apt-get install -y default-mysql-client
-    
-# Build Stage
-FROM base AS build
+RUN ./gradlew dependencies --no-daemon
+
+COPY . .
+
+# Lệnh 'bootJar' hiệu quả hơn 'build' vì nó chỉ tập trung vào việc tạo file jar có thể chạy được, -x bỏ qua unit test
+RUN ./gradlew bootJar --no-daemon -x test
+
+#Stage 2: Final
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY build.gradle.kts settings.gradle.kts ./
-COPY src ./src
-RUN ./gradlew clean build --no-daemon -x test
-    
-# Publish Stage
-FROM build AS publish
-WORKDIR /app
-RUN ./gradlew bootJar --no-daemon
-    
-# Final Stage
-FROM eclipse-temurin:21-jre-jammy AS final
-WORKDIR /app
-COPY --from=publish /app/build/libs/*.jar /app/application.jar
+COPY --from=builder /app/build/libs/*.jar application.jar
 EXPOSE 8080
+
+# Lệnh để khởi động ứng dụng khi container chạy
 ENTRYPOINT ["java", "-jar", "/app/application.jar"]
